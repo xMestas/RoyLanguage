@@ -27,9 +27,11 @@ type FuncEnv = [(Var,Func)]
 data Expr = Lit DVal 
           | Prim OpName Expr Expr
           | Ref Var
+          | Call Var [Var]
           deriving (Show)
 
 data Stmt = Set Var Expr
           | If Expr [Stmt]
           | Def Var Func
+          | Ret Expr
           deriving (Show)

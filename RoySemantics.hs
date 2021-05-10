@@ -40,6 +40,13 @@ findJust :: [Maybe (a -> a -> a)] -> (a -> a -> a)
 findJust ((Nothing):ls) = findJust ls
 findJust ((Just f):_) = f
 
+filterEnv :: [Var] -> (Var,DVal) -> Bool
+filterEnv vs (c,_) = elem c vs
+
+runFun :: Func -> (Env,FuncEnv) -> DVal
+runFun ((Ret e):_) m = eval e m
+runFun (s:ss) m = runFun ss (stmt s m)
+
 --
 -- Evaluation Functions
 --
@@ -49,6 +56,7 @@ eval (Lit x) _ = x
 eval (Prim n x y) m = case (eval x m, eval y m) of
                           (DA x1, DA y1) -> DA ((findJust (map (getOp n) (primOps x1))) (fromJust (cast x1)) (fromJust (cast y1)))
 eval (Ref x) (m,_) = case (lookup x m) of (Just v) -> v
+eval (Call fn vs) (m,fm) = case (lookup fn fm) of (Just f) -> runFun f (filter (filterEnv vs) m, fm)
 
 stmt :: Stmt -> (Env,FuncEnv) -> (Env,FuncEnv)
 stmt (Set v e) (m,fm) = ((v,eval e (m,fm)):m,fm)

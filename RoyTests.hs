@@ -4,7 +4,10 @@ import RoySyntax
 import RoySemantics
 
 addFunc :: Func
-addFunc = [Set "ret" (Prim "add" (Ref "i1") (Ref "i2"))]
+addFunc = [Set "ret" (Prim "add" (Ref "i1") (Ref "i2")), Ret (Ref "ret")]
+
+quickCall :: RoyDataType a => a -> a -> Func -> Func 
+quickCall x y f = [Set "i1" (Lit (DA x)), Set "i2" (Lit (DA y)), Def "fun" f, Set "ret" (Call "fun" ["i1", "i2"])]
 
 -- | Expression Evaluation Function Tests
 --
@@ -35,4 +38,7 @@ addFunc = [Set "ret" (Prim "add" (Ref "i1") (Ref "i2"))]
 --   ([("x",False)],[])
 --
 --   >>> stmt (Def "addInts" addFunc) ([],[])
---   ([],[("addInts",[Set "ret" (Prim "add" (Ref "i1") (Ref "i2"))])])
+--   ([],[("addInts",[Set "ret" (Prim "add" (Ref "i1") (Ref "i2")),Ret (Ref "ret")])])
+--
+--   >>> stmts (quickCall (5::Int) (6::Int) addFunc) ([],[])
+--   ([("ret",11),("i2",6),("i1",5)],[("fun",[Set "ret" (Prim "add" (Ref "i1") (Ref "i2")),Ret (Ref "ret")])])
