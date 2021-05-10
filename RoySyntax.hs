@@ -21,9 +21,15 @@ type Env = [(Var,DVal)]
 type OpName = String
 type PrimOp a = (OpName, a -> a -> a)
 
+type Func = [Stmt]
+type FuncEnv = [(Var,Func)]
+
 data Expr = Lit DVal 
           | Prim OpName Expr Expr
           | Ref Var
+          deriving (Show)
 
 data Stmt = Set Var Expr
           | If Expr [Stmt]
+          | Def Var Func
+          deriving (Show)

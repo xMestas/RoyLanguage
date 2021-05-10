@@ -44,16 +44,17 @@ findJust ((Just f):_) = f
 -- Evaluation Functions
 --
 
-eval :: Expr -> Env -> DVal
+eval :: Expr -> (Env,FuncEnv) -> DVal
 eval (Lit x) _ = x
 eval (Prim n x y) m = case (eval x m, eval y m) of
                           (DA x1, DA y1) -> DA ((findJust (map (getOp n) (primOps x1))) (fromJust (cast x1)) (fromJust (cast y1)))
-eval (Ref x) m = case (lookup x m) of (Just v) -> v
+eval (Ref x) (m,_) = case (lookup x m) of (Just v) -> v
 
-stmt :: Stmt -> Env -> Env
-stmt (Set v e) m = (v,eval e m):m
+stmt :: Stmt -> (Env,FuncEnv) -> (Env,FuncEnv)
+stmt (Set v e) (m,fm) = ((v,eval e (m,fm)):m,fm)
 stmt (If e ss) m = case (eval e m) of (DA x) -> if fromJust (cast x) then stmts ss m else m
+stmt (Def v ss) (m,fm) = (m,(v,ss):fm)
 
-stmts :: [Stmt] -> Env -> Env
+stmts :: [Stmt] -> (Env,FuncEnv) -> (Env,FuncEnv)
 stmts (s:ss) m = stmts ss (stmt s m)
 stmts [] m = m
