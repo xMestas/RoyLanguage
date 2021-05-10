@@ -10,3 +10,6 @@ import RoySemantics
 --
 --   >>> eval (Prim "add" (Lit (DA (3::Int))) (Lit (DA (4::Int)))) []
 --   7
+--
+--   >>> eval (Ref "x") [("x",DA (5::Int))]
+--   5
