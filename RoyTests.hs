@@ -24,3 +24,9 @@ import RoySemantics
 --
 --   >>> stmt (Set "x" (Lit (DA (4::Int)))) []
 --   [("x",4)]
+--
+--   >>> stmts [Set "x" (Lit (DA (4::Int))), Set "y" (Lit (DA True))] []
+--   [("y",True),("x",4)]
+--
+--   >>> stmt (If (Lit (DA True)) [Set "x" (Lit (DA False))]) []
+--   [("x",False)]

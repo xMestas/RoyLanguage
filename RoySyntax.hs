@@ -26,3 +26,4 @@ data Expr = Lit DVal
           | Ref Var
 
 data Stmt = Set Var Expr
+          | If Expr [Stmt]

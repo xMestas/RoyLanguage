@@ -52,3 +52,8 @@ eval (Ref x) m = case (lookup x m) of (Just v) -> v
 
 stmt :: Stmt -> Env -> Env
 stmt (Set v e) m = (v,eval e m):m
+stmt (If e ss) m = case (eval e m) of (DA x) -> if fromJust (cast x) then stmts ss m else m
+
+stmts :: [Stmt] -> Env -> Env
+stmts (s:ss) m = stmts ss (stmt s m)
+stmts [] m = m
