@@ -17,6 +17,19 @@ instance RoyDataType Int where
 add :: PrimOp Int
 add = ("add",(+))
 
+readBool :: String -> Maybe Bool
+readBool ("True") = Just True
+readBool ("False") = Just False
+readBool _ = Nothing
+
+instance RoyDataType Bool where
+    litParserSymbol _ = "Bool "
+    parseFunction = readBool
+    primOps _ = [eq]
+
+eq :: PrimOp Bool
+eq = ("eq",(==))
+
 --
 -- Helper Functions
 --

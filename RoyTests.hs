@@ -16,6 +16,9 @@ import RoySemantics
 --
 --   >>> eval (Prim "add" (Lit (DA (3::Int))) (Ref "x")) [("x",DA (5::Int))]
 --   8
+--
+--   >>> eval (Prim "eq" (Lit (DA (True))) (Lit (DA (False)))) []
+--   False
 
 -- | Statement Evaluation Function Tests
 --
