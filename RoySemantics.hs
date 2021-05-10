@@ -36,3 +36,6 @@ eval (Lit x) _ = x
 eval (Prim n x y) m = case (eval x m, eval y m) of
                           (DA x1, DA y1) -> DA ((findJust (map (getOp n) (primOps x1))) (fromJust (cast x1)) (fromJust (cast y1)))
 eval (Ref x) m = case (lookup x m) of (Just v) -> v
+
+stmt :: Stmt -> Env -> Env
+stmt (Set v e) m = (v,eval e m):m

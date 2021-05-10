@@ -24,3 +24,5 @@ type PrimOp a = (OpName, a -> a -> a)
 data Expr = Lit DVal 
           | Prim OpName Expr Expr
           | Ref Var
+
+data Stmt = Set Var Expr
