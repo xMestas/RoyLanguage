@@ -12,75 +12,45 @@ quickCall x y f = [Set "i1" (Lit (DA x)), Set "i2" (Lit (DA y)), Def "fun" f, Se
 -- | Expression Evaluation Function Tests
 --
 --   >>> eval (Lit (DA (4::Int))) ([],[])
---   4
---
---   >>> eval (Prim "add" (Lit (DA (3::Int))) (Lit (DA (4::Int)))) ([],[])
---   7
---
---   >>> eval (Ref "x") ([("x",DA (5::Int))],[])
---   5
---
---   >>> eval (Prim "add" (Lit (DA (3::Int))) (Ref "x")) ([("x",DA (5::Int))],[])
---   8
---
---   >>> eval (Prim "eq" (Lit (DA (True))) (Lit (DA (False)))) ([],[])
---   False
---
---   >>> eval' (Lit (DA (4::Int))) ([],[])
 --   Just 4
 --
---   >>> eval' (Prim "add" (Lit (DA (3::Int))) (Lit (DA (4::Int)))) ([],[])
+--   >>> eval (Prim "add" (Lit (DA (3::Int))) (Lit (DA (4::Int)))) ([],[])
 --   Just 7
 --
---   >>> eval' (Ref "x") ([("x",DA (5::Int))],[])
+--   >>> eval (Ref "x") ([("x",DA (5::Int))],[])
 --   Just 5
 --
---   >>> eval' (Prim "add" (Lit (DA (3::Int))) (Ref "x")) ([("x",DA (5::Int))],[])
+--   >>> eval (Prim "add" (Lit (DA (3::Int))) (Ref "x")) ([("x",DA (5::Int))],[])
 --   Just 8
 --
---   >>> eval' (Prim "eq" (Lit (DA (True))) (Lit (DA (False)))) ([],[])
+--   >>> eval (Prim "eq" (Lit (DA (True))) (Lit (DA (False)))) ([],[])
 --   Just False
 --
---   >>> eval' (Prim "add" (Lit (DA (True))) (Lit (DA (3::Int)))) ([],[])
+--   >>> eval (Prim "add" (Lit (DA (True))) (Lit (DA (3::Int)))) ([],[])
 --   Nothing
 --
---   >>> eval' (Prim "eq" (Lit (DA (True))) (Lit (DA (3::Int)))) ([],[])
+--   >>> eval (Prim "eq" (Lit (DA (True))) (Lit (DA (3::Int)))) ([],[])
 --   Nothing
 
 -- | Statement Evaluation Function Tests
 --
 --   >>> stmt (Set "x" (Lit (DA (4::Int)))) ([],[])
---   ([("x",4)],[])
---
---   >>> stmts [Set "x" (Lit (DA (4::Int))), Set "y" (Lit (DA True))] ([],[])
---   ([("y",True),("x",4)],[])
---
---   >>> stmt (If (Lit (DA True)) [Set "x" (Lit (DA False))]) ([],[])
---   ([("x",False)],[])
---
---   >>> stmt (Def "addInts" addFunc) ([],[])
---   ([],[("addInts",[Set "ret" (Prim "add" (Ref "i1") (Ref "i2")),Ret (Ref "ret")])])
---
---   >>> stmts (quickCall (5::Int) (6::Int) addFunc) ([],[])
---   ([("ret",11),("i2",6),("i1",5)],[("fun",[Set "ret" (Prim "add" (Ref "i1") (Ref "i2")),Ret (Ref "ret")])])
---
---   >>> stmt' (Set "x" (Lit (DA (4::Int)))) ([],[])
 --   Just ([("x",4)],[])
 --
---   >>> stmts' [Set "x" (Lit (DA (4::Int))), Set "y" (Lit (DA True))] ([],[])
+--   >>> stmts [Set "x" (Lit (DA (4::Int))), Set "y" (Lit (DA True))] ([],[])
 --   Just ([("y",True),("x",4)],[])
 --
---   >>> stmt' (If (Lit (DA True)) [Set "x" (Lit (DA False))]) ([],[])
+--   >>> stmt (If (Lit (DA True)) [Set "x" (Lit (DA False))]) ([],[])
 --   Just ([("x",False)],[])
 --
---   >>> stmt' (Def "addInts" addFunc) ([],[])
+--   >>> stmt (Def "addInts" addFunc) ([],[])
 --   Just ([],[("addInts",[Set "ret" (Prim "add" (Ref "i1") (Ref "i2")),Ret (Ref "ret")])])
 --
---   >>> stmts' (quickCall (5::Int) (6::Int) addFunc) ([],[])
+--   >>> stmts (quickCall (5::Int) (6::Int) addFunc) ([],[])
 --   Just ([("ret",11),("i2",6),("i1",5)],[("fun",[Set "ret" (Prim "add" (Ref "i1") (Ref "i2")),Ret (Ref "ret")])])
 --
---   >>> stmt' (If (Lit (DA (5::Int))) [Set "x" (Lit (DA False))]) ([],[])
+--   >>> stmt (If (Lit (DA (5::Int))) [Set "x" (Lit (DA False))]) ([],[])
 --   Nothing
 --
---   >>> stmts' (quickCall (5::Int) (True) addFunc) ([],[])
+--   >>> stmts (quickCall (5::Int) (True) addFunc) ([],[])
 --   Nothing 
