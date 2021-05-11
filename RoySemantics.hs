@@ -87,7 +87,7 @@ eval' (Prim n x y) m      = do DA x1 <- eval' x m
                                op    <- findJust' $ map (getOp n) (primOps x1)
                                return DA <*> (op <$> cast x1 <*> cast y1)
 eval' (Ref x) (m,_)       = lookup x m
-eval' (Call fn vs) (m,fm) = runFun' <$> lookup fn fm <*> pure (filter (filterEnv vs) m, fm) >>= id
+eval' (Call fn vs) (m,fm) = flip runFun' (filter (filterEnv vs) m, fm) <$> lookup fn fm >>= id
 
 stmt' :: Stmt -> (Env,FuncEnv) -> Maybe (Env,FuncEnv)
 stmt' (Set v e) (m,fm)  = eval' e (m,fm) >>= \x -> Just ((v,x):m,fm)
