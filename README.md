@@ -92,6 +92,18 @@ You can see many examples of these evaluation functions being used in RoyTests.h
 
   This example evaluates a simple list of statements that set the variables x to 4 and y to True.
 
+- `stmt (If (Lit (DA (5::Int))) [Set "x" (Lit (DA False))]) ([],[])`
+  
+  `Nothing`
+
+  A Nothing value is returned because using an If statement with a condition that is not a boolean is not allowed.
+
+- `runFun prog3 ([], [])`
+
+  `Just 105`
+
+  Runs a program that takes the number 100, passes it to a function that adds 5 to it using a loop, and returns the result.
+
 ## Design Questions
 
 - Currently we are using a Generalised Algebraic Data Type (GADT) to represent values in our program.  That data type is called DVal.  What we accomplished with this GADT is that any instance of the type class RoyDataType can be stored in a DVal.  This allows us to have environments that hold an arbitrary number of data types.  The user can extend the amount of data types that can be held in the environment by creating new instances of RoyDataType.  
