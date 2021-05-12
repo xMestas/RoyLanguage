@@ -54,3 +54,7 @@ quickCall x y f = [Set "i1" (Lit (DA x)), Set "i2" (Lit (DA y)), Def "fun" f, Se
 --
 --   >>> stmts (quickCall (5::Int) (True) addFunc) ([],[])
 --   Nothing 
+--
+--   >>> stmts [Set "y" (Lit (DA True)), While (Ref "y") [Set "y" (Lit (DA False))]] ([],[])
+--   Just ([("y",False),("y",True)],[])
+--
