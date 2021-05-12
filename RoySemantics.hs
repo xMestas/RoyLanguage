@@ -71,6 +71,11 @@ stmt (Set v e) (m,fm)  = eval e (m,fm) >>= \x -> Just ((v,x):m,fm)
 stmt (If e ss) m       = do DA x <- eval e m
                             c    <- cast x
                             if c then stmts ss m else Just m
+stmt (While e ss) m    = do DA x <- eval e m
+                            c    <- cast x
+                            if c then case stmts ss m of
+                                        Just m' -> stmts [(While e ss)] m'
+                                 else Just m
 stmt (Def v ss) (m,fm) = Just (m,(v,ss):fm)
 
 stmts :: [Stmt] -> (Env,FuncEnv) -> Maybe (Env,FuncEnv)
