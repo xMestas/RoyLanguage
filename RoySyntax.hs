@@ -37,3 +37,9 @@ data Stmt = Set Var Expr
           | Def Var Func
           | Ret Expr
           deriving (Show)
+
+compose2 :: (c -> d) -> (a -> b -> c) -> a -> b -> d
+compose2 = (.) . (.)
+
+createOp :: (RoyDataType c, Typeable a, Typeable b) => s -> (a -> b -> c) -> (s, Dynamic)
+createOp s f = (s, toDyn (compose2 DA f))
