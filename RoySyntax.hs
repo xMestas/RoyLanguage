@@ -12,7 +12,7 @@ import Data.Dynamic
 class (Show a, Typeable a) => RoyDataType a where
     litParserSymbol :: a -> String -- Doesn't like it when you don't use a in the type so just a placeholder to have it there for now.
     parseFunction   :: String -> Maybe a
-    primOps         :: a -> [(String, Dynamic)]
+    primOps         :: a -> [PrimOp]
 
 data DVal where 
     DA :: RoyDataType a => a -> DVal
@@ -53,5 +53,5 @@ data Stmt = Set Var Expr
 compose2 :: (c -> d) -> (a -> b -> c) -> a -> b -> d
 compose2 = (.) . (.)
 
-createOp :: (RoyDataType c, Typeable a, Typeable b) => s -> (a -> b -> c) -> (s, Dynamic)
+createOp :: (RoyDataType a, RoyDataType b, RoyDataType c) => Var -> (a -> b -> c) -> (Var, Dynamic)
 createOp s f = (s, toDyn (compose2 DA f))
