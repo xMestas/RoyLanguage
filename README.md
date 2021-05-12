@@ -36,6 +36,20 @@ Notice that each evaluation function also takes in a tuple, with the first eleme
 The easiest environment to start with is `([],[])`. 
 You can see many examples of these evaluation functions being used in RoyTests.hs. 
 
+### Examples
+
+- `eval (Prim "add" (Lit (DA (3::Int))) (Ref "x")) ([("x",DA (5::Int))],[])`
+  
+  `Just 8`
+  
+  This example evaluates a simple expression that adds 3 and x when x stores the value 5.
+
+- `stmts [Set "x" (Lit (DA (4::Int))), Set "y" (Lit (DA True))] ([],[])`
+  
+  `Just ([("y",True),("x",4)],[])`
+
+  This example evaluates a simple list of statements that set the variables x to 4 and y to True.
+
 ## Design Questions
 
 - Currently we are using a Generalised Algebraic Data Type (GADT) to represent values in our program.  That data type is called DVal.  What we accomplished with this GADT is that any instance of the type class RoyDataType can be stored in a DVal.  This allows us to have environments that hold an arbitrary number of data types.  The user can extend the amount of data types that can be held in the environment by creating new instances of RoyDataType.  
