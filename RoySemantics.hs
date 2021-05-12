@@ -13,13 +13,19 @@ import Data.Dynamic
 instance RoyDataType Int where
     litParserSymbol _ = "Int "
     parseFunction     = readMaybe
-    primOps _         = [add]
+    primOps _         = [addOp, inteqOp]
 
-add' :: Int -> Int -> Int
-add' = (+)
+add :: Int -> Int -> DVal
+add a b = DA (a + b)
 
-add :: PrimOp
-add = ("add", toDyn add')
+addOp :: PrimOp
+addOp = ("add", toDyn add)
+
+inteq :: Int -> Int -> DVal
+inteq a b = DA (a == b)
+
+inteqOp :: PrimOp
+inteqOp = ("eq", toDyn inteq)
 
 readBool :: String -> Maybe Bool
 readBool ("True")  = Just True
@@ -29,13 +35,13 @@ readBool _         = Nothing
 instance RoyDataType Bool where
     litParserSymbol _ = "Bool "
     parseFunction     = readBool
-    primOps _         = [eq]
+    primOps _         = [eqOp]
 
-eq' :: Bool -> Bool -> Bool
-eq' = (==)
+eq :: Bool -> Bool -> DVal
+eq a b = DA (a == b)
 
-eq :: PrimOp
-eq = ("eq", toDyn eq')
+eqOp :: PrimOp
+eqOp = ("eq", toDyn eq)
 
 --
 --  Evaluation Helper Functions
@@ -67,7 +73,7 @@ eval (Prim n x y) m      = do  DA x1 <- eval x m
                                op    <- findJust $ map (getOp n) (primOps x1)
                                f1    <- dynApply op (toDyn x1)
                                f2    <- dynApply f1 (toDyn y1)
-                               return DA <*> ((fromDynamic f2) :: (Maybe Int)) -- need to be able to deduce type...
+                               fromDynamic f2
 eval (Ref x) (m,_)       = lookup x m
 eval (Call fn vs) (m,fm) = flip runFun (filter (filterEnv vs) m, fm) <$> lookup fn fm >>= id
 
