@@ -38,6 +38,12 @@ quickCall2 x y f = [Set "i1" (Lit (DA x)),
 --
 --   >>> eval (Prim "eq" (Lit (DA (True))) (Lit (DA (3::Int)))) ([],[])
 --   Nothing
+--
+--   >>> eval (Prim "eq" (Lit (DA (5::Int))) (Ref "x")) ([("x",DA (5::Int))],[])
+--   Just True
+--
+--   >>> eval (Prim "eq" (Lit (DA (5::Int))) (Ref "x")) ([("x",DA (4::Int))],[])
+--   Just False
 
 -- | Statement Evaluation Function Tests
 --
