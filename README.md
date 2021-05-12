@@ -13,7 +13,7 @@ The features planned for our project are:
 
 - Basic operations implemented for integers and booleans.
 
-- Core language features including if statements, while loops, setting and referencing variables, and defining/calling functions.
+- Core language features including if statements, while loops, comparisons, setting and referencing variables, and defining/calling functions.
 
 - An interpreter for the language and it's basic features that is compatible with user added operations and data types.
 
@@ -31,7 +31,7 @@ The features implemented so far are:
 
 - Implemented a basic interpreter for the existing language features. 
 
-- Supported if statements, setting and referencing variables, and defining/calling functions in the AST and interpreter (while loops are not implemented yet).
+- Supported if statements, while loops, setting and referencing variables, and defining/calling functions in the AST and interpreter (comparisons are not implemented yet).
 
 - Included support for Integers and Booleans along with a simple primitive operation for each (not all operations are implemented yet).
 
