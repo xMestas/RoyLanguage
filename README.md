@@ -4,7 +4,8 @@
 
 ### Goals
 
-For our project, we will create an easily user extendable imperative programming language(ROY), and implement a simple extension known as Linear Algebra Neatly Created Extension(LANCE) to demonstrate how such extensions can be done. Our programming language will besimple in its core features, but designed to be extended by users by allowing them to implementcustom data types and operations on those data types–a plugin architecture.  In addition, wewill take inspiration from SageMath and implement an example user extension that includesmatrices and vectors as data types with basic operations such as dot products that can beperformed on them.
+For our project, we will create an easily user extendable imperative programming language (ROY), and implement a simple extension known as Linear Algebra Neatly Created Extension (LANCE) to demonstrate how such extensions can be done. 
+Our programming language will be simple in its core features, but designed to be extended by users by allowing them to implement custom data types and operations on those data types–a plugin architecture.  In addition, we will take inspiration from SageMath and implement an example user extension that includes matrices and vectors as data types with basic operations such as dot products that can be performed on them.
 
 The features planned for our project are:
 
