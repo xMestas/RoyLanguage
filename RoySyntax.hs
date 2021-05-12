@@ -3,11 +3,12 @@
 module RoySyntax where
 
 import Data.Typeable
+import Data.Dynamic
 
 class (Show a, Typeable a) => RoyDataType a where
     litParserSymbol :: a -> String -- Doesn't like it when you don't use a in the type so just a placeholder to have it there for now.
     parseFunction   :: String -> Maybe a
-    primOps         :: a -> [PrimOp a]
+    primOps         :: a -> [(String, Dynamic)]
 
 data DVal where 
     DA :: RoyDataType a => a -> DVal
@@ -19,7 +20,7 @@ type Var = String
 type Env = [(Var,DVal)]
 
 type OpName = String
-type PrimOp a = (OpName, a -> a -> a)
+type PrimOp = (OpName, Dynamic)
 
 type Func = [Stmt]
 type FuncEnv = [(Var,Func)]

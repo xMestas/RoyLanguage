@@ -4,6 +4,7 @@ import RoySyntax
 import Text.Read
 import Data.Typeable 
 import Data.Maybe
+import Data.Dynamic
 
 --
 -- Primitive Data Types and Operations
@@ -14,8 +15,11 @@ instance RoyDataType Int where
     parseFunction     = readMaybe
     primOps _         = [add]
 
-add :: PrimOp Int
-add = ("add",(+))
+add' :: Int -> Int -> Int
+add' = (+)
+
+add :: PrimOp
+add = ("add", toDyn add')
 
 readBool :: String -> Maybe Bool
 readBool ("True")  = Just True
@@ -27,14 +31,17 @@ instance RoyDataType Bool where
     parseFunction     = readBool
     primOps _         = [eq]
 
-eq :: PrimOp Bool
-eq = ("eq",(==))
+eq' :: Bool -> Bool -> Bool
+eq' = (==)
+
+eq :: PrimOp
+eq = ("eq", toDyn eq')
 
 --
 --  Evaluation Helper Functions
 --
 
-getOp :: String -> PrimOp a -> Maybe (a -> a -> a)
+getOp :: String -> PrimOp -> Maybe Dynamic
 getOp n (on, f) = if n == on then Just f else Nothing
 
 filterEnv :: [Var] -> (Var,DVal) -> Bool
@@ -44,7 +51,7 @@ runFun :: Func -> (Env,FuncEnv) -> Maybe DVal
 runFun (Ret e:_) m  = eval e m
 runFun (s:ss)    m  = stmt s m >>= runFun ss
 
-findJust :: [Maybe (a -> a -> a)] -> Maybe (a -> a -> a)
+findJust :: [Maybe Dynamic] -> Maybe Dynamic
 findJust [Nothing]    = Nothing
 findJust (Nothing:ls) = findJust ls
 findJust (Just f:_)   = Just f
@@ -58,7 +65,9 @@ eval (Lit x) _           = Just x
 eval (Prim n x y) m      = do  DA x1 <- eval x m 
                                DA y1 <- eval y m
                                op    <- findJust $ map (getOp n) (primOps x1)
-                               return DA <*> (op <$> cast x1 <*> cast y1)
+                               f1    <- dynApply op (toDyn x1)
+                               f2    <- dynApply f1 (toDyn y1)
+                               return DA <*> ((fromDynamic f2) :: (Maybe Int)) -- need to be able to deduce type...
 eval (Ref x) (m,_)       = lookup x m
 eval (Call fn vs) (m,fm) = flip runFun (filter (filterEnv vs) m, fm) <$> lookup fn fm >>= id
 
