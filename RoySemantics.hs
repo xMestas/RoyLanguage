@@ -10,22 +10,29 @@ import Data.Dynamic
 -- Primitive Data Types and Operations
 --
 
+compose2 :: (c -> d) -> (a -> b -> c) -> a -> b -> d
+compose2 = (.) . (.)
+
+createOp :: (RoyDataType c, Typeable a, Typeable b) => s -> (a -> b -> c) -> (s, Dynamic)
+createOp s f = (s, toDyn (compose2 DA f))
+
 instance RoyDataType Int where
     litParserSymbol _ = "Int "
     parseFunction     = readMaybe
     primOps _         = [addOp, inteqOp]
 
-add :: Int -> Int -> DVal
-add a b = DA (a + b)
+
+add :: Int -> Int -> Int
+add = (+)
 
 addOp :: PrimOp
-addOp = ("add", toDyn add)
+addOp = createOp "add" add
 
-inteq :: Int -> Int -> DVal
-inteq a b = DA (a == b)
+inteq :: Int -> Int -> Bool
+inteq = (==)
 
 inteqOp :: PrimOp
-inteqOp = ("eq", toDyn inteq)
+inteqOp = createOp "eq" inteq
 
 readBool :: String -> Maybe Bool
 readBool ("True")  = Just True
@@ -35,13 +42,13 @@ readBool _         = Nothing
 instance RoyDataType Bool where
     litParserSymbol _ = "Bool "
     parseFunction     = readBool
-    primOps _         = [eqOp]
+    primOps _         = [booleqOp]
 
-eq :: Bool -> Bool -> DVal
-eq a b = DA (a == b)
+booleq :: Bool -> Bool -> Bool
+booleq = (==)
 
-eqOp :: PrimOp
-eqOp = ("eq", toDyn eq)
+booleqOp :: PrimOp
+booleqOp = createOp "eq" booleq
 
 --
 --  Evaluation Helper Functions
@@ -88,9 +95,9 @@ stmt (If e ss) m       = do DA x <- eval e m
                             if c then stmts ss m else Just m
 stmt (While e ss) m    = do DA x <- eval e m
                             c    <- cast x
-                            if c then case stmts ss m of
-                                        Just m' -> stmts [(While e ss)] m'
-                                 else Just m
+                            if c
+                                then stmts ss m >>= stmts [(While e ss)]
+                                else Just m
 stmt (Def v ss) (m,fm) = Just (m,(v,ss):fm)
 
 stmts :: [Stmt] -> (Env,FuncEnv) -> Maybe (Env,FuncEnv)
