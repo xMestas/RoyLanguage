@@ -12,7 +12,29 @@ asdf
 
 ## Instructions
 
-asdf
+RoySytax.hs holds the definitions of the data types that make up the core syntax and AST of the language.
+
+RoySemantics.hs defines the basic data types and operations  in the language, and contains evaluation functions for expressions and statements. 
+
+RoyTests.hs contains doctest test cases for the evaluation functions.  After installing doctest, the tests can be ran with the following command:
+
+`doctest RoyTests.hs`
+
+To interact with the language and evaluation functions in GHCi, load RoySemantics.hs in GHCi with the following command:
+
+`ghci RoySemantics.hs`
+
+
+In GHCi, you can build expressions and statements using the AST that is defined in RoySyntax.hs.
+Note that DVals can be created using (DA x) where x is any instance of RoyDataType.
+Sometimes, GHCi will require you to explicitly state the type of x.
+For example, to store the integer 4 as a DVal you would need to do `(DA 4::Int)`.
+
+Expressions and Statements can be evaluated using their evaluation functions.
+Their respective evaluation functions are eval for expressions, stmt for a single statement, and stmts for a list of statements.
+Notice that each evaluation function also takes in a tuple, with the first element being a list of tuples with a variable name and a DVal stored in that variable, and the second element being a list of tuples with a function name, and a list of statements for that function.
+The easiest environment to start with is `([],[])`. 
+You can see many examples of these evaluation functions being used in RoyTests.hs. 
 
 ## Design Questions
 
