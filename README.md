@@ -4,11 +4,47 @@
 
 ### Goals
 
-asdf
+For our project, we will create an easily user extendable imperative programming language(ROY), and implement a simple extension known as Linear Algebra Neatly Created Extension(LANCE) to demonstrate how such extensions can be done. Our programming language will besimple in its core features, but designed to be extended by users by allowing them to implementcustom data types and operations on those data types–a plugin architecture.  In addition, wewill take inspiration from SageMath and implement an example user extension that includesmatrices and vectors as data types with basic operations such as dot products that can beperformed on them.
+
+The features planned for our project are:
+
+- A simple extensible programming language that supports integers and booleans, as well as allows the user to extend the language with their own custom primitive data types and operations.
+
+- Basic operations implemented for integers and booleans.
+
+- Core language features including if statements, while loops, setting and referencing variables, and defining/calling functions.
+
+- An interpreter for the language and it's basic features that is compatible with user added operations and data types.
+
+- An extendable parser that can convert the languages concrete syntax to an AST that can be interpreted by the interpreter.
+
+- An extendable type checker that can validate programs before they are ran by the interpreter.
+
+- An example user extension to the programming language.
 
 ### Progress
 
-asdf
+The features implemented so far are: 
+
+- Created the data types to represent the AST of an extensible imperative programming language.
+
+- Implemented a basic interpreter for the existing language features. 
+
+- Supported if statements, setting and referencing variables, and defining/calling functions in the AST and interpreter (while loops are not implemented yet).
+
+- Included support for Integers and Booleans along with a simple primitive operation for each (not all operations are implemented yet).
+
+- Added run time error checking to the interpreter in place of the type checker.  
+
+- Defined multiple test cases to ensure correctness in the interpreter.
+
+The features to be implemented in the future are:
+
+- Clean up the missing pieces mentioned above
+
+- Create an extendable concrete syntax and parser, and a program that links the parser to the interpreter.  
+
+- Develop an example user extension to show that the language is extendable. 
 
 ## Instructions
 
