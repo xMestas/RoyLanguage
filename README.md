@@ -51,15 +51,17 @@ The features to be implemented in the future are:
 
 RoySytax.hs holds the definitions of the data types that make up the core syntax and AST of the language.
 
-RoySemantics.hs defines the basic data types and operations  in the language, and contains evaluation functions for expressions and statements. 
+RoyBase.hs defines the basic data types and operations in the language. 
+
+RoySemantics.hs contains evaluation functions for expressions and statements. 
 
 RoyTests.hs contains doctest test cases for the evaluation functions.  After installing doctest, the tests can be ran with the following command:
 
 `doctest RoyTests.hs`
 
-To interact with the language and evaluation functions in GHCi, load RoySemantics.hs in GHCi with the following command:
+To interact with the language and evaluation functions in GHCi, load RoyTests.hs in GHCi with the following command:
 
-`ghci RoySemantics.hs`
+`ghci RoyTests.hs`
 
 
 In GHCi, you can build expressions and statements using the AST that is defined in RoySyntax.hs.
