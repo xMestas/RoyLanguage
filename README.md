@@ -51,7 +51,7 @@ The features to be implemented in the future are:
 
 RoySytax.hs holds the definitions of the data types that make up the core syntax and AST of the language.
 
-RoyBase.hs defines the basic data types and operations in the language. 
+RoyBase.hs defines the basic data types and operations in the language. The basic data types and operations are added to the language in the same way an extension would be done.
 
 RoySemantics.hs contains evaluation functions for expressions and statements. 
 
