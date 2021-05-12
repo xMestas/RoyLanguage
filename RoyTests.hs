@@ -2,6 +2,7 @@ module RoyTests where
 
 import RoySyntax
 import RoySemantics
+import RoyBase
 
 addFunc :: Func
 addFunc = [Set "ret" (Prim "add" (Ref "i1") (Ref "i2")), Ret (Ref "ret")]
