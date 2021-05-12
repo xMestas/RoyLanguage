@@ -13,7 +13,7 @@ The features planned for our project are:
 
 - Basic operations implemented for integers and booleans.
 
-- Core language features including if statements, while loops, comparisons, setting and referencing variables, and defining/calling functions.
+- Core language features including if statements, while loops, primitive operations, setting and referencing variables, and defining/calling functions.
 
 - An interpreter for the language and it's basic features that is compatible with user added operations and data types.
 
@@ -31,7 +31,7 @@ The features implemented so far are:
 
 - Implemented a basic interpreter for the existing language features. 
 
-- Supported if statements, while loops, setting and referencing variables, and defining/calling functions in the AST and interpreter (comparisons are not implemented yet).
+- Supported if statements, while loops, primitive operations, setting and referencing variables, and defining/calling functions in the AST and interpreter.
 
 - Included support for Integers and Booleans along with a simple primitive operation for each (not all operations are implemented yet).
 
@@ -41,7 +41,7 @@ The features implemented so far are:
 
 The features to be implemented in the future are:
 
-- Clean up the missing pieces mentioned above
+- Add more primitive operations for integers and booleans.
 
 - Create an extendable concrete syntax and parser, and a program that links the parser to the interpreter.  
 
@@ -94,5 +94,5 @@ You can see many examples of these evaluation functions being used in RoyTests.h
   We found this created issues for us, as our RoyDataType instances now must be Typeable, and we have to cast them from DVals back to their original types to perform primitive operations on them.  Do you have any other suggestions for how we could accomplish having variable environments while also allowing users to extend the language with new data types?  Any other suggestions overall to improve the simplicity of our interpreter while maintaining extensibility of the language? 
 - The next steps for us will be to design a concrete syntax and implement a parser to convert concrete syntax into a list of statements.  We are looking at using the [Parsec](https://wiki.haskell.org/Parsec) library for the parser.  All of the functions that we will need to have defined to parse user created data types are included in the RoyDataType type class.  Do you have any suggestions for us when designing our parser and concrete syntax?
 - Currently, returning from a function is a statement, but that statement is interpreted by the runFun function which is called by the expression evaluation function.  This feels off to me.  It feels like the stmts function and the runFun are doing the same job, but they have different return types.  Do you have any suggestions to resolve this, or improve the way that we return from functions?
-- Do you have any ideas for how we could get primitive operations to be able to return a different type than the type of their inputs?  Also, is there any way we can get the inputs to be different types/arities?
+- Do you have any ideas for how we could have primitive operations with different arities?
 - We're thinking of ditching having a type checker and doing our error checking at run time, as shown in our evaluation functions.  Does our error checking look sufficient so far? Are there any error cases we are missing?
