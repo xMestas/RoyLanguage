@@ -5,6 +5,10 @@ module RoySyntax where
 import Data.Typeable
 import Data.Dynamic
 
+--
+-- Data types that define the languages data types, allowing the language to be extensible
+--
+
 class (Show a, Typeable a) => RoyDataType a where
     litParserSymbol :: a -> String -- Doesn't like it when you don't use a in the type so just a placeholder to have it there for now.
     parseFunction   :: String -> Maybe a
@@ -15,6 +19,10 @@ data DVal where
 
 instance Show DVal where
     show (DA a) = show a
+
+--
+-- AST for the language
+--
 
 type Var = String
 type Env = [(Var,DVal)]
@@ -37,6 +45,10 @@ data Stmt = Set Var Expr
           | Def Var Func
           | Ret Expr
           deriving (Show)
+
+--
+-- Helper functions for building PrimOps out of functions.
+--
 
 compose2 :: (c -> d) -> (a -> b -> c) -> a -> b -> d
 compose2 = (.) . (.)
