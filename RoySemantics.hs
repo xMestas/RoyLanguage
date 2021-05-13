@@ -14,10 +14,6 @@ getOp n (on, f) = if n == on then Just f else Nothing
 filterEnv :: [Var] -> (Var,DVal) -> Bool
 filterEnv vs (c,_) = elem c vs
 
-runFun :: Func -> (Env,FuncEnv) -> Maybe DVal
-runFun (Ret e:_) m  = eval e m
-runFun (s:ss)    m  = stmt s m >>= runFun ss
-
 findJust :: [Maybe Dynamic] -> Maybe Dynamic
 findJust [Nothing]    = Nothing
 findJust (Nothing:ls) = findJust ls
@@ -55,3 +51,8 @@ stmt (Def v ss) (m,fm) = Just (m,(v,ss):fm)
 stmts :: [Stmt] -> (Env,FuncEnv) -> Maybe (Env,FuncEnv)
 stmts (s:ss) m = stmt s m >>= stmts ss
 stmts [] m     = Just m
+
+runFun :: Func -> (Env,FuncEnv) -> Maybe DVal
+runFun ([]) m       = Nothing
+runFun (Ret e:_) m  = eval e m
+runFun (s:ss)    m  = stmt s m >>= runFun ss

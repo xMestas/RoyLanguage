@@ -74,3 +74,6 @@ import RoyExamples
 --
 --   >>> runFun prog3 ([], [])
 --   Just 105
+--
+--   >>> runFun (callBinaryFunc (1::Int) (2::Int) addFunc) ([], [])
+--   Nothing
