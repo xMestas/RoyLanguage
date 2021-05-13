@@ -1,6 +1,11 @@
 # ROY (Extensible Imperative Language)
 
-## Description
+## Table of Contents
+- [Project Description](#project-description)
+- [Instructions](#instructions)
+- [Milestone 1](#milestone-1)
+
+## Project Description
 
 ### Goals
 
@@ -104,8 +109,9 @@ You can see many examples of these evaluation functions being used in [RoyTests.
 
   Runs a program that takes the number 100, passes it to a function that adds 5 to it using a loop, and returns the result.
 
-## Design Questions
+## Milestone 1
 
+### Design Questions
 - Currently we are using a Generalised Algebraic Data Type (GADT) to represent values in our program.  That data type is called DVal.  What we accomplished with this GADT is that any instance of the type class RoyDataType can be stored in a DVal.  This allows us to have environments that hold an arbitrary number of data types.  The user can extend the amount of data types that can be held in the environment by creating new instances of RoyDataType.  
 
   We found this created complexity for us, as our RoyDataType instances now must be Typeable, and we have to cast them from DVals back to their original types to perform primitive operations on them.  Do you have any other suggestions for how we could accomplish having variable environments while also allowing users to extend the language with new data types?  Do you have an ideas for how we could have primitive operations with different arities?  Any other suggestions overall to improve the simplicity of our interpreter while maintaining the extensibility of the language? 
