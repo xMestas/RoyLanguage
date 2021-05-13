@@ -19,7 +19,7 @@ The features planned for our project are:
 - Basic operations implemented for integers and booleans.
 - Core language features including if statements, while loops, primitive operations, setting and referencing variables, and defining/calling functions.
 - An interpreter for the language and it's basic features that is compatible with user added operations and data types.
-- An extendable parser that can convert the languages concrete syntax to an AST that can be interpreted by the interpreter.
+- An extendable parser that can convert the languages concrete syntax to Abstract Syntax Tree (AST) that can be interpreted by the interpreter.
 - An extendable type checker that can validate programs before they are ran by the interpreter.
 - An example user extension to the programming language.
 
