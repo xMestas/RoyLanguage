@@ -10,12 +10,13 @@ import RoyBase
 addFunc :: Func
 addFunc = [Set "ret" (Prim "add" (Ref "i1") (Ref "i2")), Ret (Ref "ret")]
 
--- Generate a function that calls a binary function with arguments
+-- This is a helper function which calls a binary function. First two arguments are inputs for the binary function.
 callBinaryFunc :: (RoyDataType a, RoyDataType b) => a -> b -> Func -> Func 
 callBinaryFunc x y f = [Set "i1" (Lit (DA x)), 
                         Set "i2" (Lit (DA y)), 
                         Def "fun" f, 
-                        Set "ret" (Call "fun" ["i1", "i2"])]
+                        Set "ret" (Call "fun" ["i1", "i2"]),
+                        Ret (Ref "ret")]
 
 -- A sub function that takes a number and return a sum of series of 5 numbers
 seriesSum :: Func
@@ -38,6 +39,7 @@ seriesSum = [Set "count" (Lit (DA (0::Int))),
 --     y = False
 --  }
 --  return z
+
 prog1 :: Func
 prog1 = [Set "x" (Lit (DA (0::Int))),
          Set "y" (Lit (DA (True))),
@@ -49,11 +51,13 @@ prog1 = [Set "x" (Lit (DA (0::Int))),
 
 -- Sample program #2 
 -- This program returns sum of two numbers. It uses 'addFunc' and 'callBinaryFunc'
+
 prog2 :: Func
-prog2 = callBinaryFunc (-100::Int) (101::Int) addFunc ++ [Ret (Ref "ret")]
+prog2 = callBinaryFunc (-100::Int) (101::Int) addFunc
         
 -- Sample program #3
 -- This calls 'seriesSum' function
+
 prog3 :: Func
 prog3 = [Set "x" (Lit (DA (100::Int))),
          Def "seriesSum" seriesSum,

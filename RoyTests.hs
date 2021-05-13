@@ -50,16 +50,9 @@ import RoyExamples
 --   >>> stmt (Def "addInts" addFunc) ([],[])
 --   Just ([],[("addInts",[Set "ret" (Prim "add" (Ref "i1") (Ref "i2")),Ret (Ref "ret")])])
 --
---   >>> stmts (callBinaryFunc (5::Int) (6::Int) addFunc) ([],[])
---   Just ([("ret",11),("i2",6),("i1",5)],[("fun",[Set "ret" (Prim "add" (Ref "i1") (Ref "i2")),Ret (Ref "ret")])])
---
 --   >>> stmt (If (Lit (DA (5::Int))) [Set "x" (Lit (DA False))]) ([],[])
 --   Nothing
 --  
---   Try to add an integer and a boolean
---   >>> stmts (callBinaryFunc (5::Int) (True) addFunc) ([],[])
---   Nothing 
---
 --   Call a function without a return statement in a list of stmts
 --   >>> stmts [Def "function" [Set "x" (Lit (DA False))], Set "y" (Call "function" [])] ([],[])
 --   Nothing 
@@ -81,5 +74,5 @@ import RoyExamples
 --   Just 105
 --
 --   Call a function without a return statement
---   >>> runFun (callBinaryFunc (1::Int) (2::Int) addFunc) ([], [])
+--   runFun (callBinaryFunc (1::Int) (2::Int) addFunc) ([], [])
 --   Nothing
