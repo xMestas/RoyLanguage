@@ -49,24 +49,24 @@ The features to be implemented in the future are:
 
 ## Instructions
 
-RoySytax.hs holds the definitions of the data types that make up the core syntax and AST of the language.
+(RoySyntax.hs)[RoySyntax.hs] holds the definitions of the data types that make up the core syntax and AST of the language.
 
-RoyBase.hs defines the basic data types and operations in the language. The basic data types and operations are added to the language in the same way an extension would be done.
+(RoyBase.hs)[RoyBase.hs] defines the basic data types and operations in the language. The basic data types and operations are added to the language in the same way an extension would be done.
 
-RoySemantics.hs contains evaluation functions for expressions and statements. 
+(RoySemantics.hs)[RoySemantics.hs] contains evaluation functions for expressions and statements. 
 
-RoyExamples.hs has example programs for the language, as well as helper functions for building example programs. 
+(RoyExamples.hs)[RoyExamples.hs] has example programs for the language, as well as helper functions for building example programs. 
 
-RoyTests.hs contains doctest test cases for the evaluation functions that use the examples.  After installing doctest, the tests can be ran with the following command:
+(RoyTests.hs)[RoyTests.hs] contains doctest test cases for the evaluation functions that use the examples.  After installing doctest, the tests can be ran with the following command:
 
 `doctest RoyTests.hs`
 
-To interact with the language, example programs, and evaluation functions in GHCi, load RoyTests.hs in GHCi with the following command:
+To interact with the language, example programs, and evaluation functions in GHCi, load (RoyTests.hs)[RoyTests.hs] in GHCi with the following command:
 
 `ghci RoyTests.hs`
 
 
-In GHCi, you can build expressions and statements using the AST that is defined in RoySyntax.hs.
+In GHCi, you can build expressions and statements using the AST that is defined in (RoySyntax.hs)[RoySyntax.hs].
 Note that DVals can be created using `(DA x)` where x is any instance of RoyDataType.
 Sometimes, GHCi will require you to explicitly state the type of x.
 For example, to store the integer 4 as a DVal you would need to do `(DA 4::Int)`.
@@ -76,7 +76,7 @@ Their respective evaluation functions are `eval` for expressions, `stmt` for a s
 The `runFun` function is used for evaluating the result of a function (a list of statements that contains a return statement).
 Notice that each evaluation function also takes in a tuple, with the first element being a list of tuples with a variable name and a `DVal` stored in that variable, and the second element being a list of tuples with a function name, and a list of statements for that function.
 The easiest environment to start with is `([],[])`. 
-You can see many examples of these evaluation functions being used in RoyTests.hs. 
+You can see many examples of these evaluation functions being used in (RoyTests.hs)[RoyTest.hs]. 
 
 ### Examples
 
