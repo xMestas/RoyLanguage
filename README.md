@@ -96,7 +96,7 @@ You can see many examples of these evaluation functions being used in RoyTests.h
   
   `Nothing`
 
-  A Nothing value is returned because using an If statement with a condition that is not a boolean is not allowed.
+  A Nothing value is returned because using an if statement with a condition that is not a boolean is not allowed.
 
 - `runFun prog3 ([], [])`
 
