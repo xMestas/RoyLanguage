@@ -55,8 +55,13 @@ import RoyExamples
 --
 --   >>> stmt (If (Lit (DA (5::Int))) [Set "x" (Lit (DA False))]) ([],[])
 --   Nothing
---
+--  
+--   Try to add an integer and a boolean
 --   >>> stmts (callBinaryFunc (5::Int) (True) addFunc) ([],[])
+--   Nothing 
+--
+--   Call a function without a return statement in a list of stmts
+--   >>> stmts [Def "function" [Set "x" (Lit (DA False))], Set "y" (Call "function" [])] ([],[])
 --   Nothing 
 --
 --   >>> stmts [Set "y" (Lit (DA True)), While (Ref "y") [Set "y" (Lit (DA False))]] ([],[])
@@ -75,5 +80,6 @@ import RoyExamples
 --   >>> runFun prog3 ([], [])
 --   Just 105
 --
+--   Call a function without a return statement
 --   >>> runFun (callBinaryFunc (1::Int) (2::Int) addFunc) ([], [])
 --   Nothing
