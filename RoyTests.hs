@@ -141,3 +141,6 @@ import RoyParser
 --
 --   >>> runParse parseStmts "set var x = $ Int 34\n ret ref var x\n"
 --   Right [Set "x" (Lit 34),Ret (Ref "x")]
+--
+--   >>> runParse parseStmts concrete1
+--   Right [Def "foo" [Set "x" (Lit 34),Ret (Ref "x")],Set "worked" (Lit False),Set "result" (Call "foo" []),If (Prim "eq" (Ref "result") (Lit 34)) [Set "worked" (Lit True)]]

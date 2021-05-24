@@ -62,3 +62,10 @@ prog3 :: Func
 prog3 = [Set "x" (Lit (DA (100::Int))),
          Def "seriesSum" seriesSum,
          Ret (Call "seriesSum" ["x"])]
+
+
+-- Concrete syntax examples for the parser to parse
+
+concrete1 :: String
+concrete1 = "def var foo {\n set var x = $ Int 34\n ret ref var x\n}\n\nset var worked = $ Bool False \nset var result = call var foo()\nif ( op eq (ref var result, $ Int 34 ) ) {\n  set var worked = $ Bool True \n}\n\n"
+
