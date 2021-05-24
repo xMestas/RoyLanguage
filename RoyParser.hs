@@ -23,18 +23,31 @@ genLitParser (s,p) = do
                    v <- p
                    return (Lit v)
 
+-- Parse a literal value
 parseLit :: Parser Expr
 parseLit = string "$ " >> choice (map genLitParser litParseList)
 
+-- Parse a variable name
 parseVar :: Parser String
 parseVar = string "var " >> many1 (choice [digit, letter, char '_'])
 
+-- Parse a variable reference
 parseRef :: Parser Expr
 parseRef = do
          string "ref "
          v <- parseVar
          return (Ref v)
- 
 
+-- Parse a function call
+parseCall :: Parser Expr
+parseCall = do
+          string "call "
+          fn <- parseVar
+          char '('
+          vs <- sepBy parseVar (char ',')
+          char ')'
+          return (Call fn vs)
+
+-- Parse an expression
 parseExpr :: Parser Expr
-parseExpr = choice [parseLit, parseRef]
+parseExpr = choice [parseLit, parseRef, parseCall]

@@ -94,8 +94,15 @@ import RoyParser
 --   Right (Ref "x1")
 --
 --
+--   >>> runParse parseCall "call var foo(var bar,var x2)"
+--   Right (Call "foo" ["bar","x2"])
+--
+--
 --   >>> runParse parseExpr "$ Int 34"
 --   Right (Lit 34)
 --
 --   >>> runParse parseExpr "ref var x1"
 --   Right (Ref "x1")
+--
+--   >>> runParse parseExpr "call var foo(var bar,var x2)"
+--   Right (Call "foo" ["bar","x2"])
