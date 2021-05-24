@@ -127,9 +127,13 @@ import RoyParser
 --   Right (Ret (Lit 34))
 --
 --
---   >>> runParse parseStmts "set var x = $ Int 34\n ret ref var x\n"
---   Right [Set "x" (Lit 34),Ret (Ref "x")]
---
---
 --   >>> runParse parseDef "def var foo {\n set var x = $ Int 34\n ret ref var x\n}\n"
 --   Right (Def "foo" [Set "x" (Lit 34),Ret (Ref "x")])
+--
+--
+--   >>> runParse parseIf "if ( op eq ($ Int 4, $ Int 4) ) {\n  ret $ Int 5\n\n}\n"
+--   Right (If (Prim "eq" (Lit 4) (Lit 4)) [Ret (Lit 5)])
+--
+--
+--   >>> runParse parseStmts "set var x = $ Int 34\n ret ref var x\n"
+--   Right [Set "x" (Lit 34),Ret (Ref "x")]

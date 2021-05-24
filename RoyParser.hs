@@ -100,7 +100,7 @@ parseRet = do
 
 -- Parse a statement
 parseStmt :: Parser Stmt
-parseStmt = choice [parseSet, parseRet]
+parseStmt = choice [parseSet, parseRet, parseDef, parseIf]
 
 -- Parse multiple statements seperated by newlines
 parseStmts :: Parser [Stmt]
@@ -115,6 +115,19 @@ parseDef = do
          string "{\n"
          inst <- parseStmts
          char '}'
-         many1 (char '\n')
+         --many1 (char '\n')
          return (Def fn inst)
-         
+
+-- Parse an if statement 
+parseIf :: Parser Stmt
+parseIf = do
+        string "if ("
+        optional parseWhitespace
+        cond <- parseExpr
+        optional parseWhitespace
+        char ')'
+        optional parseWhitespace
+        string "{\n"
+        inst <- parseStmts
+        char '}'
+        return (If cond inst)
