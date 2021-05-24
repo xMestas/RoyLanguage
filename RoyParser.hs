@@ -101,3 +101,6 @@ parseRet = do
 -- Parse a statement
 parseStmt :: Parser Stmt
 parseStmt = choice [parseSet, parseRet]
+
+parseStmts :: Parser [Stmt]
+parseStmts = sepBy (parseStmt) (optional parseWhitespace >> char '\n' >> optional parseWhitespace)
