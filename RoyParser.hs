@@ -1,6 +1,7 @@
 module RoyParser where
 
 import Text.ParserCombinators.Parsec
+import System.IO
 
 import RoySyntax
 import RoyBase
@@ -144,3 +145,6 @@ parseStmt = choice [parseSet, parseRet, parseDef, parseIf, parseWhile]
 -- Parse multiple statements seperated by newlines
 parseStmts :: Parser [Stmt]
 parseStmts = optional parseWhitespace >> endBy (parseStmt) (optional parseWhitespace >> many1 (char '\n') >> optional parseWhitespace)
+
+parseProg :: String -> (Either ParseError [Stmt])
+parseProg s = runParse parseStmts s

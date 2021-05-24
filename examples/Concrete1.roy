@@ -1,0 +1,12 @@
+def var foo {
+ set var x = $ Int 34
+ ret ref var x
+}
+
+set var worked = $ Bool False 
+set var result = call var foo()
+if ( op eq (ref var result, $ Int 34 ) ) {
+  set var worked = $ Bool True 
+}
+
+
