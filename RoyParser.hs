@@ -26,5 +26,15 @@ genLitParser (s,p) = do
 parseLit :: Parser Expr
 parseLit = string "$ " >> choice (map genLitParser litParseList)
 
+parseVar :: Parser String
+parseVar = string "var " >> many1 (choice [digit, letter, char '_'])
+
+parseRef :: Parser Expr
+parseRef = do
+         string "ref "
+         v <- parseVar
+         return (Ref v)
+ 
+
 parseExpr :: Parser Expr
-parseExpr = choice [parseLit]
+parseExpr = choice [parseLit, parseRef]

@@ -86,6 +86,16 @@ import RoyParser
 --   Right (Lit True)
 --
 --
+--   >>> runParse parseVar "var x1"
+--   Right "x1" 
+--
+--
+--   >>> runParse parseRef "ref var x1"
+--   Right (Ref "x1")
+--
 --
 --   >>> runParse parseExpr "$ Int 34"
 --   Right (Lit 34)
+--
+--   >>> runParse parseExpr "ref var x1"
+--   Right (Ref "x1")
