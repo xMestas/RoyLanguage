@@ -102,5 +102,19 @@ parseRet = do
 parseStmt :: Parser Stmt
 parseStmt = choice [parseSet, parseRet]
 
+-- Parse multiple statements seperated by newlines
 parseStmts :: Parser [Stmt]
-parseStmts = optional parseWhitespace >> sepBy (parseStmt) (optional parseWhitespace >> many1 (char '\n') >> optional parseWhitespace)
+parseStmts = optional parseWhitespace >> endBy (parseStmt) (optional parseWhitespace >> many1 (char '\n') >> optional parseWhitespace)
+
+-- Parse function definitions
+parseDef :: Parser Stmt
+parseDef = do
+         string "def "
+         fn <- parseVar
+         parseWhitespace
+         string "{\n"
+         inst <- parseStmts
+         char '}'
+         many1 (char '\n')
+         return (Def fn inst)
+         

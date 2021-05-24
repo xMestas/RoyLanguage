@@ -127,5 +127,9 @@ import RoyParser
 --   Right (Ret (Lit 34))
 --
 --
---   >>> runParse parseStmts "set var x = $ Int 34\n ret ref var x"
+--   >>> runParse parseStmts "set var x = $ Int 34\n ret ref var x\n"
 --   Right [Set "x" (Lit 34),Ret (Ref "x")]
+--
+--
+--   >>> runParse parseDef "def var foo {\n set var x = $ Int 34\n ret ref var x\n}\n"
+--   Right (Def "foo" [Set "x" (Lit 34),Ret (Ref "x")])
