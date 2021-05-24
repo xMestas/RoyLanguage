@@ -106,3 +106,10 @@ import RoyParser
 --
 --   >>> runParse parseExpr "call var foo(var bar,var x2)"
 --   Right (Call "foo" ["bar","x2"])
+--
+--   >>> runParse parseExpr "op add ($ Int 34, $ Int 35)"
+--   Right (Prim "add" (Lit 34) (Lit 35))
+--
+--   Parser cannot check semantic error 
+--   >>> runParse parseExpr "op add (op eq ($ Bool True, $ Bool False), $ Int 35)"
+--   Right (Prim "add" (Prim "eq" (Lit True) (Lit False)) (Lit 35))
