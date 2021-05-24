@@ -60,6 +60,7 @@ parseCall = do
           char ')'
           return (Call fn vs)
 
+-- Parse a primitive op
 parsePrim :: Parser Expr
 parsePrim = do
     string "op "
@@ -80,6 +81,8 @@ parsePrim = do
 parseExpr :: Parser Expr
 parseExpr = choice [parseLit, parseRef, parseCall, parsePrim]
 
+
+-- Parse a set statement
 parseSet :: Parser Stmt
 parseSet = do 
          string "set "
@@ -88,8 +91,13 @@ parseSet = do
          val <- parseExpr
          return (Set var val)
 
+-- Parse a ret statement
 parseRet :: Parser Stmt
 parseRet = do
          string "ret "
          val <- parseExpr
          return (Ret val)
+
+-- Parse a statement
+parseStmt :: Parser Stmt
+parseStmt = choice [parseSet, parseRet]
