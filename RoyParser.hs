@@ -87,3 +87,9 @@ parseSet = do
          string " = "
          val <- parseExpr
          return (Set var val)
+
+parseRet :: Parser Stmt
+parseRet = do
+         string "ret "
+         val <- parseExpr
+         return (Ret val)
