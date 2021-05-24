@@ -1,13 +1,19 @@
 module RoyBase where
 
 import RoySyntax
+
+import Text.ParserCombinators.Parsec
 import Text.Read
 import Data.Dynamic
 
 instance RoyDataType Int where
-    litParserSymbol _ = "Int "
-    parseFunction     = readMaybe
-    primOps _         = [addOp, inteqOp]
+    litParserInfo _ = ("Int",parseInt)
+    primOps _       = [addOp, inteqOp]
+
+parseInt :: Parser DVal 
+parseInt = do
+         n <- many1 digit
+         return (DA (read n::Int))
 
 add :: Int -> Int -> Int
 add = (+)
@@ -21,15 +27,13 @@ inteq = (==)
 inteqOp :: PrimOp
 inteqOp = createOp "eq" inteq
 
-readBool :: String -> Maybe Bool
-readBool ("True")  = Just True
-readBool ("False") = Just False
-readBool _         = Nothing
-
 instance RoyDataType Bool where
-    litParserSymbol _ = "Bool "
-    parseFunction     = readBool
-    primOps _         = [booleqOp]
+    litParserInfo _ = ("Bool",parseBool)
+    primOps _       = [booleqOp]
+
+parseBool :: Parser DVal
+parseBool = (string "True" >> return (DA True))
+            <|> (string "False" >> return (DA False))
 
 booleq :: Bool -> Bool -> Bool
 booleq = (==)

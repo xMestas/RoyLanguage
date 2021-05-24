@@ -2,6 +2,7 @@
 
 module RoySyntax where
 
+import Text.ParserCombinators.Parsec
 import Data.Typeable
 import Data.Dynamic
 
@@ -10,8 +11,7 @@ import Data.Dynamic
 --
 
 class (Show a, Typeable a) => RoyDataType a where
-    litParserSymbol :: a -> String -- Doesn't like it when you don't use a in the type so just a placeholder to have it there for now.
-    parseFunction   :: String -> Maybe a
+    litParserInfo   :: a -> (String,Parser DVal) -- Doesn't like it when you don't use a in the type so just a placeholder to have it there for now.
     primOps         :: a -> [PrimOp]
 
 data DVal where 
