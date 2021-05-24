@@ -11,6 +11,12 @@ import RoyBase
 litParseList :: [(String, Parser DVal)]
 litParseList = [litParserInfo (1::Int), litParserInfo True]
 
+-- List of all prim ops in the current program for all RoyDataTypes.
+-- TODO: Currently the user must add their custom data types to this list here.
+--   Would be better if this list was generated.
+primOpList :: [PrimOp]
+primOpList = primOps (1::Int) ++ primOps True 
+
 -- Helper function to run a parser on an input.
 runParse :: Parser a -> String -> Either ParseError a
 runParse p i = parse p "(Unknown)" i
@@ -48,18 +54,10 @@ parseCall = do
           char ')'
           return (Call fn vs)
 
--- Parse an expression
-parseExpr :: Parser Expr
-parseExpr = choice [parseLit, parseRef, parseCall, parsePrim]
-
--- Parse a primitive operation
-primOpList :: [String]
-primOpList = ["add", "eq"]
-
 parsePrim :: Parser Expr
 parsePrim = do
     string "op "
-    op <- choice (map string primOpList)
+    op <- choice (map (string . fst) primOpList)
     skipMany1 space
     char '('
     e1 <- parseExpr
@@ -68,3 +66,7 @@ parsePrim = do
     e2 <- parseExpr
     char ')'
     return (Prim op e1 e2)
+
+-- Parse an expression
+parseExpr :: Parser Expr
+parseExpr = choice [parseLit, parseRef, parseCall, parsePrim]
