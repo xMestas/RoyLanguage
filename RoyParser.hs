@@ -50,4 +50,21 @@ parseCall = do
 
 -- Parse an expression
 parseExpr :: Parser Expr
-parseExpr = choice [parseLit, parseRef, parseCall]
+parseExpr = choice [parseLit, parseRef, parseCall, parsePrim]
+
+-- Parse a primitive operation
+primOpList :: [String]
+primOpList = ["add", "eq"]
+
+parsePrim :: Parser Expr
+parsePrim = do
+    string "op "
+    op <- choice (map string primOpList)
+    skipMany1 space
+    char '('
+    e1 <- parseExpr
+    char ','
+    skipMany1 space
+    e2 <- parseExpr
+    char ')'
+    return (Prim op e1 e2)
