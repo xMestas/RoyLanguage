@@ -4,7 +4,7 @@ import RoySyntax
 import RoySemantics
 import RoyBase
 import RoyExamples
-
+import RoyParser
 
 -- | Expression Evaluation Function Tests
 --
@@ -76,3 +76,16 @@ import RoyExamples
 --   Call a function without a return statement
 --   runFun (callBinaryFunc (1::Int) (2::Int) addFunc) ([], [])
 --   Nothing
+
+-- | Parser Tests
+--
+--   >>> runParse parseLit "$ Int 34"
+--   Right (Lit 34)
+--
+--   >>> runParse parseLit "$ Bool True"
+--   Right (Lit True)
+--
+--
+--
+--   >>> runParse parseExpr "$ Int 34"
+--   Right (Lit 34)
