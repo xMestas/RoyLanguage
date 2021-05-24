@@ -103,4 +103,4 @@ parseStmt :: Parser Stmt
 parseStmt = choice [parseSet, parseRet]
 
 parseStmts :: Parser [Stmt]
-parseStmts = sepBy (parseStmt) (optional parseWhitespace >> char '\n' >> optional parseWhitespace)
+parseStmts = optional parseWhitespace >> sepBy (parseStmt) (optional parseWhitespace >> many1 (char '\n') >> optional parseWhitespace)
