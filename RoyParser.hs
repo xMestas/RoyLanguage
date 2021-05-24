@@ -37,6 +37,10 @@ parseLit = string "$ " >> choice (map genLitParser litParseList)
 parseVar :: Parser String
 parseVar = string "var " >> many1 (choice [digit, letter, char '_'])
 
+-- Parse whitespace
+parseWhitespace :: Parser String
+parseWhitespace = many1 (oneOf " \t")
+
 -- Parse a variable reference
 parseRef :: Parser Expr
 parseRef = do
@@ -50,7 +54,9 @@ parseCall = do
           string "call "
           fn <- parseVar
           char '('
-          vs <- sepBy parseVar (char ',')
+          optional parseWhitespace
+          vs <- sepBy (parseVar) (optional parseWhitespace >> char ',' >> optional parseWhitespace)
+          optional parseWhitespace
           char ')'
           return (Call fn vs)
 
@@ -58,12 +64,15 @@ parsePrim :: Parser Expr
 parsePrim = do
     string "op "
     op <- choice (map (string . fst) primOpList)
-    skipMany1 space
+    parseWhitespace
     char '('
+    optional parseWhitespace
     e1 <- parseExpr
+    optional parseWhitespace
     char ','
-    skipMany1 space
+    optional parseWhitespace
     e2 <- parseExpr
+    optional parseWhitespace
     char ')'
     return (Prim op e1 e2)
 

@@ -98,13 +98,17 @@ import RoyParser
 --   Right (Call "foo" ["bar","x2"])
 --
 --
+--   >>> runParse parsePrim "op add ( $ Int 34, $ Int 35 )"
+--   Right (Prim "add" (Lit 34) (Lit 35))
+--
+--
 --   >>> runParse parseExpr "$ Int 34"
 --   Right (Lit 34)
 --
 --   >>> runParse parseExpr "ref var x1"
 --   Right (Ref "x1")
 --
---   >>> runParse parseExpr "call var foo(var bar,var x2)"
+--   >>> runParse parseExpr "call var foo(var bar, var x2)"
 --   Right (Call "foo" ["bar","x2"])
 --
 --   >>> runParse parseExpr "op add ($ Int 34, $ Int 35)"
