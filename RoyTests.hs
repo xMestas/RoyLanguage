@@ -117,3 +117,7 @@ import RoyParser
 --   Parser cannot check semantic error 
 --   >>> runParse parseExpr "op add (op eq ($ Bool True, $ Bool False), $ Int 35)"
 --   Right (Prim "add" (Prim "eq" (Lit True) (Lit False)) (Lit 35))
+--
+--
+--   >>> runParse parseSet "set var x = $ Int 34"
+--   Right (Set "x" (Lit 34))

@@ -79,3 +79,11 @@ parsePrim = do
 -- Parse an expression
 parseExpr :: Parser Expr
 parseExpr = choice [parseLit, parseRef, parseCall, parsePrim]
+
+parseSet :: Parser Stmt
+parseSet = do 
+         string "set "
+         var <- parseVar
+         string " = "
+         val <- parseExpr
+         return (Set var val)
