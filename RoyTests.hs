@@ -135,5 +135,9 @@ import RoyParser
 --   Right (If (Prim "eq" (Lit 4) (Lit 4)) [Ret (Lit 5)])
 --
 --
+--   >>> runParse parseWhile "while ( op eq ($ Int 4, $ Int 4) ) {\n  ret $ Int 5\n\n}\n"
+--   Right (While (Prim "eq" (Lit 4) (Lit 4)) [Ret (Lit 5)])
+--
+--
 --   >>> runParse parseStmts "set var x = $ Int 34\n ret ref var x\n"
 --   Right [Set "x" (Lit 34),Ret (Ref "x")]

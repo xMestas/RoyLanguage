@@ -98,14 +98,6 @@ parseRet = do
          val <- parseExpr
          return (Ret val)
 
--- Parse a statement
-parseStmt :: Parser Stmt
-parseStmt = choice [parseSet, parseRet, parseDef, parseIf]
-
--- Parse multiple statements seperated by newlines
-parseStmts :: Parser [Stmt]
-parseStmts = optional parseWhitespace >> endBy (parseStmt) (optional parseWhitespace >> many1 (char '\n') >> optional parseWhitespace)
-
 -- Parse function definitions
 parseDef :: Parser Stmt
 parseDef = do
@@ -115,7 +107,6 @@ parseDef = do
          string "{\n"
          inst <- parseStmts
          char '}'
-         --many1 (char '\n')
          return (Def fn inst)
 
 -- Parse an if statement 
@@ -131,3 +122,25 @@ parseIf = do
         inst <- parseStmts
         char '}'
         return (If cond inst)
+
+-- Parse a while statement 
+parseWhile :: Parser Stmt
+parseWhile = do
+           string "while ("
+           optional parseWhitespace
+           cond <- parseExpr
+           optional parseWhitespace
+           char ')'
+           optional parseWhitespace
+           string "{\n"
+           inst <- parseStmts
+           char '}'
+           return (While cond inst)
+
+-- Parse a statement
+parseStmt :: Parser Stmt
+parseStmt = choice [parseSet, parseRet, parseDef, parseIf, parseWhile]
+
+-- Parse multiple statements seperated by newlines
+parseStmts :: Parser [Stmt]
+parseStmts = optional parseWhitespace >> endBy (parseStmt) (optional parseWhitespace >> many1 (char '\n') >> optional parseWhitespace)
