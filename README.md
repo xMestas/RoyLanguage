@@ -83,14 +83,14 @@ set var z = call foo(var x, var y)
 - When `if` and `while` statement is used, it is followed by an expression enclosed by parentheses and statements enclosed by curly braces `{...}`.
 ```
 if (eq (ref var x, ref var y)) {
-	set var z = add (ref var z, $ Int 1) 
+   set var z = add (ref var z, $ Int 1) 
 }
 ```
 - A function can be defined with `def` keyword. It is followed by function name with `var` keyword and statements enclosed by curly braces `{...}`. Note that the last statement should be a return statement for a defined function.
 ```
 def var foo {
- set var x = $ Int 34
- ret ref var x
+   set var x = $ Int 34
+   ret ref var x
 }
 ```
 - Return statement starts with `ret` keyword and a following expression.
