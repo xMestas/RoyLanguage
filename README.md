@@ -49,6 +49,8 @@ prog ::= e | stmt; prog   	  // sequence of statements
 ```
 
 ### Concrete Syntax
+- Every literal value should start with `$` and name for the data type, then actual value. A white space is needed in between. ex)`$ Int 1`, `$ Bool True`
+- 
 
 ## Instructions
 
