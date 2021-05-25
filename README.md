@@ -26,6 +26,30 @@ The features planned for our project are:
 - An extendable type checker that can validate programs before they are ran by the interpreter.
 - An example user extension to the programming language.
 
+### Abstract Syntax
+
+Roy has the following abstract syntax.
+```
+DVal ::= (Integer, Boolean, ..)   // data type for literal values
+
+Var ::= String.           			  // variable or function names
+
+Expr ::= Lit DVal	      				  // literals
+       | Prim OpName Expr Expr	  // primitive binary operation (addition, comparison, ..)
+		   | Ref Var      					  // refer to a variable
+		   | Call Var [Var]   			  // call a named function with variables
+
+Stmt ::= Set Var Expr			        // store to a variable
+       | If Expr [Stmt]			      // conditional statement
+       | While Expr [Stmt]		    // loop until expression is True
+       | Def Var Func			        // define a function
+  		 | Ret Expr					        // return statement
+
+Func ::= e | Stmt; Func   			  // sequence of statements 
+```
+
+### Concrete Syntax
+
 ## Instructions
 
 - [RoySyntax.hs](RoySyntax.hs) holds the definitions of the data types that make up the core syntax and AST of the language.
