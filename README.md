@@ -122,19 +122,9 @@ The features planned for our project are:
 - Develop an example user extension to show that the language is extendable. 
 
 ### Design Decisions
-- Currently we are using a Generalised Algebraic Data Type (GADT) to represent values in our language. 
-That data type is called DVal. 
-What we accomplished with this GADT is that any instance of the type class RoyDataType can be stored in a DVal.  
-RoyDataType is a type class that enforces that all instances of it will provide the information needed by the parser and interpreter.  
-This allows us to have environments that hold an arbitrary number of data types, and expressions that can operate on an arbitrary number of data types.
-The user can extend the amount of data types that can be held in the environment by creating new instances of RoyDataType. 
+- Currently we are using a Generalised Algebraic Data Type (GADT) to represent values in our language.  That data type is called DVal.  What we accomplished with this GADT is that any instance of the type class RoyDataType can be stored in a DVal.  RoyDataType is a type class that enforces that all instances of it will provide the information needed by the parser and interpreter.  This allows us to have environments that hold an arbitrary number of data types, and expressions that can operate on an arbitrary number of data types.  The user can extend the amount of data types that can be held in the environment by creating new instances of RoyDataType. 
 
-We tried other methods for making the data types in our language extendable.  
-The most promising attempt was making the Expr type a GADT that is parameterized by a type a.  
-This method would have been preferred because it would likely make our implementation of primitive operations and type checking much simpler.  
-However, variable references prevented this method from working.  
-The type of the reference data constructor was (String -> Expr a).
-The interpreter would constantly give errors because it does not know what type a is, and it cannot guarantee that the type of the value coming out of the environment was of type a.
+  We tried other methods for making the data types in our language extendable.  The most promising attempt was making the Expr type a GADT that is parameterized by a type a.  This method would have been preferred because it would likely make our implementation of primitive operations and type checking much simpler.  However, variable references prevented this method from working.  The type of the reference data constructor was (String -> Expr a).  The interpreter would constantly give errors because it does not know what type a is, and it cannot guarantee that the type of the value coming out of the environment was of type a.
 
 - Extendable primitive ops
 
