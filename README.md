@@ -99,6 +99,8 @@ The features planned for our project are:
 
   We found this created complexity for us, as our RoyDataType instances now must be Typeable, and we have to cast them from DVals back to their original types to   perform primitive operations on them.  Do you have any other suggestions for how we could accomplish having variable environments while also allowing users to extend the language with new data types?  Do you have an ideas for how we could have primitive operations with different arities?  Any other suggestions overall to improve the simplicity of our interpreter while maintaining the extensibility of the language? 
 
+  ![Image 1](images/image1.PNG)
+
 - The next steps for us will be to design a concrete syntax and implement a parser to convert concrete syntax into a list of statements.  We are looking at using the [Parsec](https://wiki.haskell.org/Parsec) library for the parser.  All of the functions that we will need to have defined to parse user created data types are included in the RoyDataType type class.  Do you have any suggestions for us when designing our parser and concrete syntax?
 
 - Currently, returning from a function is a statement, but that statement is interpreted by the runFun function which is called by the expression evaluation function.  This feels off to me.  It feels like the stmts function and the runFun are doing the same job, but they have different return types.  Do you have any suggestions to resolve this, or improve the way that we return from functions?  Also, we can not return inside of if statements and while loops as a result.
