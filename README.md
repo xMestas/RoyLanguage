@@ -2,6 +2,8 @@
 
 ## Table of Contents
 - [Project Description](#project-description)
+  - [Abstract Syntax](#abstrac-syntax)
+  - [Concrete Syntax](#concrete-syntax)  
 - [Instructions](#instructions)
 - [Examples](#examples)
 - [Milestone 1](#milestone-1)
@@ -72,7 +74,30 @@ call var bar(var x, var y)
 add ($ Int 3, $ Int 7)
 eq ($ Bool True, ref var x)
 ```
-- 
+- To store an expression into a variable, start with`set` keyword and the variable name with`var` keyword, following an equal sign and the expression to be stored.
+```
+set var x = $ Int 3
+set var y = ref var x
+set var z = call foo(var x, var y)
+```
+- When `if` and `while` statement is used, it is followed by an expression enclosed by parentheses and statements enclosed by curly braces `{...}`.
+```
+if (eq (ref var x, ref var y)) {
+	set var z = add (ref var z, $ Int 1) 
+}
+```
+- A function can be defined with `def` keyword. It is followed by function name with `var` keyword and statements enclosed by curly braces `{...}`. Note that the last statement should be a return statement for a defined function.
+```
+def var foo {
+ set var x = $ Int 34
+ ret ref var x
+}
+```
+- Return statement starts with `ret` keyword and a following expression.
+```
+ret ref var result
+```
+
 ## Instructions
 
 - [RoySyntax.hs](RoySyntax.hs) holds the definitions of the data types that make up the core syntax and AST of the language.
