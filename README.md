@@ -32,20 +32,20 @@ Roy has the following abstract syntax.
 ```
 DVal ::= (Integer, Boolean, ..)   // data type for literal values
 
-Var ::= String.           			  // variable or function names
+Var ::= String           	  // variable or function names
 
-Expr ::= Lit DVal	      				  // literals
+Expr ::= Lit DVal	      	  // literals
        | Prim OpName Expr Expr	  // primitive binary operation (addition, comparison, ..)
-		   | Ref Var      					  // refer to a variable
-		   | Call Var [Var]   			  // call a named function with variables
+       | Ref Var      		  // refer to a variable
+       | Call Var [Var]   	  // call a named function with variables
 
-Stmt ::= Set Var Expr			        // store to a variable
-       | If Expr [Stmt]			      // conditional statement
-       | While Expr [Stmt]		    // loop until expression is True
-       | Def Var Func			        // define a function
-  		 | Ret Expr					        // return statement
+Stmt ::= Set Var Expr	          // store to a variable
+       | If Expr [Stmt]	          // conditional statement
+       | While Expr [Stmt]        // loop until expression is True
+       | Def Var [Stmt]	          // define a function
+       | Ret Expr		  // return statement
 
-Func ::= e | Stmt; Func   			  // sequence of statements 
+prog ::= e | stmt; prog   	  // sequence of statements 
 ```
 
 ### Concrete Syntax
