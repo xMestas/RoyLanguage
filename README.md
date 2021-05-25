@@ -49,8 +49,23 @@ prog ::= e | stmt; prog   	  // sequence of statements
 ```
 
 ### Concrete Syntax
-- Every literal should start with `$` and name for the data type, then actual value. A white space is needed in between. ex)`$ Int 1`, `$ Bool True`
-- 
+- Every literal should start with `$` and name for the data type, then actual value. A white space is needed in between.
+```
+$ Int 1`, `$ Bool True
+```
+- A keyword `var` is always required in front of variable or function name, a whitespace in between. Letters, numbers and `_` can be used for a name. 
+```
+var Roy12_3
+```
+- To refer a variable, use `ref` keyword.
+```
+ref var x
+```
+- To call a function, use `call` keyword and following function name and variable names. Variable names are enclosed by parentheses and each variable name is separated by a comma. 
+```
+call var foo()
+call var bar(var x, var y)
+```
 
 ## Instructions
 
