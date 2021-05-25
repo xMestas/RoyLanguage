@@ -130,6 +130,8 @@ The features planned for our project are:
   We tried other methods for making the data types in our language extendable.  The most promising attempt was making the Expr type a GADT that is parameterized by a type a.  This method would have been preferred because it would likely make our implementation of primitive operations and type checking much simpler.  However, variable references prevented this method from working.  The type of the reference data constructor was (String -> Expr a).  The interpreter would constantly give errors because it does not know what type a is, and it cannot guarantee that the type of the value coming out of the environment was of type a.
 
   ![Image 1](images/image1.PNG)
+  ![Image 2](images/image2.PNG)
+  ![Image 3](images/image3.PNG)
 
 - Extendable primitive ops
 
