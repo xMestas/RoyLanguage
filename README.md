@@ -7,6 +7,9 @@
 - [Milestone 1](#milestone-1)
   - [Progress](#progress)
   - [Design Questions](#design-questions)
+- [Milestone 2](#milestone-2)
+  - [Progress](#progress)
+  - [Design Decisions](#design-decisions)
 
 ## Project Description
 
