@@ -52,51 +52,51 @@ prog ::= e | stmt; prog   	  // sequence of statements
 
 ### Concrete Syntax
 - Every literal should start with `$`, name for the data type and actual value.
-```
-$ Int 1
-$ Bool True
-```
+  ```
+  $ Int 1
+  $ Bool True
+  ```
 - A keyword `var` is always required in front of variable or function name. Letters, numbers and `_` can be used for a name. 
-```
-var Roy12_3
-```
+  ```
+  var Roy12_3
+  ```
 - To refer a variable, use `ref` keyword.
-```
-ref var x
-```
+  ```
+  ref var x
+  ```
 - To call a function, use `call` keyword and following function name and variable names. Variable names are enclosed by parentheses and each variable name is separated by a comma. 
-```
-call var foo()
-call var bar(var x, var y)
-```
+  ```
+  call var foo()
+  call var bar(var x, var y)
+  ```
 - To execute primitive binary operation, use the operation name as keyword and following expressions enclosed by parentheses and separated by a comma.
-```
-add ($ Int 3, $ Int 7)
-eq ($ Bool True, ref var x)
-```
+  ```
+  add ($ Int 3, $ Int 7)
+  eq ($ Bool True, ref var x)
+  ```
 - To store an expression into a variable, start with`set` keyword and the variable name with`var` keyword, following an equal sign and the expression to be stored.
-```
-set var x = $ Int 3
-set var y = ref var x
-set var z = call foo(var x, var y)
-```
+  ```
+  set var x = $ Int 3
+  set var y = ref var x
+  set var z = call foo(var x, var y)
+  ```
 - When `if` and `while` statement is used, it is followed by an expression enclosed by parentheses and statements enclosed by curly braces `{...}`.
-```
-if (eq (ref var x, ref var y)) {
-   set var z = add (ref var z, $ Int 1) 
-}
-```
+  ```
+  if (eq (ref var x, ref var y)) {
+     set var z = add (ref var z, $ Int 1) 
+  }
+  ```
 - A function can be defined with `def` keyword. It is followed by function name with `var` keyword and statements enclosed by curly braces `{...}`. Note that the last statement should be a return statement for a defined function.
-```
-def var foo {
-   set var x = $ Int 34
-   ret ref var x
-}
-```
+  ```
+  def var foo {
+     set var x = $ Int 34
+     ret ref var x
+  }
+  ```
 - Return statement starts with `ret` keyword and a following expression. Note that main program should not include return statement.
-```
-ret ref var result
-```
+  ```
+  ret ref var result
+  ```
 
 ## Instructions
 
@@ -125,10 +125,10 @@ ret ref var result
    You can see many examples of these evaluation functions being used in [RoyTests.hs](RoyTest.hs).
  
  - You would write a program with concrete syntax in a file. To execute a file written with Roy, compile the `Main.hs` and execute it with filename as the argument. Sample programs can be found in `examples` folder.
- ```
- $ ghc -O Main.hs
- $ ./Main filename
- ```
+   ```
+   $ ghc -O Main.hs
+   $ ./Main filename
+   ```
 
 ## Examples
 
