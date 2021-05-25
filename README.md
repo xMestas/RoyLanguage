@@ -93,7 +93,7 @@ def var foo {
    ret ref var x
 }
 ```
-- Return statement starts with `ret` keyword and a following expression.
+- Return statement starts with `ret` keyword and a following expression. Note that main program should not include return statement.
 ```
 ret ref var result
 ```
@@ -104,6 +104,7 @@ ret ref var result
 - [RoyBase.hs](RoyBase.hs) defines the basic data types and operations in the language. The basic data types and operations are added to the language in the same way an extension would be done.
 - [RoySemantics.hs](RoySemantics.hs) contains evaluation functions for expressions and statements. 
 - [RoyExamples.hs](RoyExamples.hs) has example programs for the language, as well as helper functions for building example programs. 
+- [RoyParser.hs](RoyParser.hs) includes parsing functions for expressions and statements.
 - [RoyTests.hs](RoyTests.hs) contains doctest test cases for the evaluation functions that use the examples.  After installing doctest, the tests can be ran with the following command:
 
   ```doctest RoyTests.hs```
@@ -121,7 +122,13 @@ ret ref var result
    The `runFun` function is used for evaluating the result of a function (a list of statements that contains a return statement).
    Notice that each evaluation function also takes in a tuple, with the first element being a list of tuples with a variable name and a `DVal` stored in that variable, and the second element being a list of tuples with a function name, and a list of statements for that function.
    The easiest environment to start with is `([],[])`. 
-   You can see many examples of these evaluation functions being used in [RoyTests.hs](RoyTest.hs). 
+   You can see many examples of these evaluation functions being used in [RoyTests.hs](RoyTest.hs).
+ 
+ - You would write a program with concrete syntax in a file. To execute a file written with Roy, compile the `Main.hs` and execute it with filename as the argument. Sample programs can be found in `examples` folder.
+ ```
+ $ ghc -O Main.hs
+ $ ./Main filename
+ ```
 
 ## Examples
 
