@@ -49,11 +49,12 @@ prog ::= e | stmt; prog   	  // sequence of statements
 ```
 
 ### Concrete Syntax
-- Every literal should start with `$` and name for the data type, then actual value. A white space is needed in between.
+- Every literal should start with `$`, name for the data type and actual value.
 ```
-$ Int 1`, `$ Bool True
+$ Int 1
+$ Bool True
 ```
-- A keyword `var` is always required in front of variable or function name, a whitespace in between. Letters, numbers and `_` can be used for a name. 
+- A keyword `var` is always required in front of variable or function name. Letters, numbers and `_` can be used for a name. 
 ```
 var Roy12_3
 ```
@@ -66,7 +67,12 @@ ref var x
 call var foo()
 call var bar(var x, var y)
 ```
-
+- To execute primitive binary operation, use the operation name as keyword and following expressions enclosed by parentheses and separated by a comma.
+```
+add ($ Int 3, $ Int 7)
+eq ($ Bool True, ref var x)
+```
+- 
 ## Instructions
 
 - [RoySyntax.hs](RoySyntax.hs) holds the definitions of the data types that make up the core syntax and AST of the language.
