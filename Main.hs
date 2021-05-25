@@ -13,6 +13,6 @@ main = do
      f <- openFile fn ReadMode
      progString <- hGetContents f
      case parseProg progString of
-         (Right ast) -> print (stmts ast ([],[]))
-         (Left err) -> print (err)
+         Right ast -> print (stmts ast ([],[]))
+         Left err  -> print err
      hClose f

@@ -64,19 +64,19 @@ parseCall = do
 -- Parse a primitive op
 parsePrim :: Parser Expr
 parsePrim = do
-    string "op "
-    op <- choice (map (string . fst) primOpList)
-    parseWhitespace
-    char '('
-    optional parseWhitespace
-    e1 <- parseExpr
-    optional parseWhitespace
-    char ','
-    optional parseWhitespace
-    e2 <- parseExpr
-    optional parseWhitespace
-    char ')'
-    return (Prim op e1 e2)
+          -- string "op "
+          op <- choice (map (string . fst) primOpList)
+          parseWhitespace
+          char '('
+          optional parseWhitespace
+          e1 <- parseExpr
+          optional parseWhitespace
+          char ','
+          optional parseWhitespace
+          e2 <- parseExpr
+          optional parseWhitespace
+          char ')'
+          return (Prim op e1 e2)
 
 -- Parse an expression
 parseExpr :: Parser Expr

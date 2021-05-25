@@ -1,0 +1,15 @@
+def var seriesSum {
+    set var count = $ Int 0
+    set var test = $ Bool True
+    while (ref var test) {
+        set var x = add (ref var x, $ Int 1)
+        set var count = add (ref var count, $ Int 1)
+        if (eq (ref var count, $ Int 5)) {
+            set var test = $ Bool False
+        }
+    }
+    ret ref var x
+}
+
+set var x = $ Int 100
+set var result = call var seriesSum(var x)

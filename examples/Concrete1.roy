@@ -5,8 +5,7 @@ def var foo {
 
 set var worked = $ Bool False 
 set var result = call var foo()
-if ( op eq (ref var result, $ Int 34 ) ) {
+if (eq (ref var result, $ Int 34 ) ) {
   set var worked = $ Bool True 
 }
-
 

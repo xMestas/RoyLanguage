@@ -98,7 +98,7 @@ import RoyParser
 --   Right (Call "foo" ["bar","x2"])
 --
 --
---   >>> runParse parsePrim "op add ( $ Int 34, $ Int 35 )"
+--   >>> runParse parsePrim "add ( $ Int 34, $ Int 35 )"
 --   Right (Prim "add" (Lit 34) (Lit 35))
 --
 --
@@ -111,11 +111,11 @@ import RoyParser
 --   >>> runParse parseExpr "call var foo(var bar, var x2)"
 --   Right (Call "foo" ["bar","x2"])
 --
---   >>> runParse parseExpr "op add ($ Int 34, $ Int 35)"
+--   >>> runParse parseExpr "add ($ Int 34, $ Int 35)"
 --   Right (Prim "add" (Lit 34) (Lit 35))
 --
 --   Parser cannot check semantic error 
---   >>> runParse parseExpr "op add (op eq ($ Bool True, $ Bool False), $ Int 35)"
+--   >>> runParse parseExpr "add (eq ($ Bool True, $ Bool False), $ Int 35)"
 --   Right (Prim "add" (Prim "eq" (Lit True) (Lit False)) (Lit 35))
 --
 --
@@ -131,11 +131,11 @@ import RoyParser
 --   Right (Def "foo" [Set "x" (Lit 34),Ret (Ref "x")])
 --
 --
---   >>> runParse parseIf "if ( op eq ($ Int 4, $ Int 4) ) {\n  ret $ Int 5\n\n}\n"
+--   >>> runParse parseIf "if ( eq ($ Int 4, $ Int 4) ) {\n  ret $ Int 5\n\n}\n"
 --   Right (If (Prim "eq" (Lit 4) (Lit 4)) [Ret (Lit 5)])
 --
 --
---   >>> runParse parseWhile "while ( op eq ($ Int 4, $ Int 4) ) {\n  ret $ Int 5\n\n}\n"
+--   >>> runParse parseWhile "while ( eq ($ Int 4, $ Int 4) ) {\n  ret $ Int 5\n\n}\n"
 --   Right (While (Prim "eq" (Lit 4) (Lit 4)) [Ret (Lit 5)])
 --
 --
