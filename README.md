@@ -32,7 +32,7 @@ Roy has the following abstract syntax.
 ```
 DVal ::= (Integer, Boolean, ..)   // data type for literal values
 
-Var ::= String           	  // variable or function names
+Var  ::= String           	  // variable or function names
 
 Expr ::= Lit DVal	      	  // literals
        | Prim OpName Expr Expr	  // primitive binary operation (addition, comparison, ..)
