@@ -137,6 +137,7 @@ The features planned for our project are:
 
 - Extendable primitive ops
 
-- Parser combinator/monad
+- We used the library Parsec to implement the parser.  We had heard of Parsec from our classmates talking about it, but did not know how to use it.  The backup plan was to use the combinator pattern like in hasklet 2 along with a parser monad to remove some of the repeated code like we had in that hasklet.  However, once we looked into Parsec we realized that it does exactly that.  We used the combinator pattern to build our parser for Roy out of many small parsers for smaller parts of the language.  We used the parser monad constantly throughout our implementation as well.
+ 
 
 - Refactoring semantic domain to fix issues with the language? if time.
