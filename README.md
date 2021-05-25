@@ -101,3 +101,31 @@ The features planned for our project are:
 - Currently, returning from a function is a statement, but that statement is interpreted by the runFun function which is called by the expression evaluation function.  This feels off to me.  It feels like the stmts function and the runFun are doing the same job, but they have different return types.  Do you have any suggestions to resolve this, or improve the way that we return from functions?  Also, we can not return inside of if statements and while loops as a result.
 
 - We're thinking of ditching having a type checker and doing our error checking at run time, as shown in our evaluation functions.  Does our error checking look sufficient so far? Are there any error cases we are missing?
+
+## Milestone 2
+
+### Progress
+
+#### Current Features:
+- Created the data types to represent the AST of an extensible imperative programming language.
+- Implemented a basic interpreter for the existing language features. 
+- Supported if statements, while loops, primitive operations, setting and referencing variables, and defining/calling functions in the AST and interpreter.
+- Included support for Integers and Booleans along with a simple primitive operation for each (not all operations are implemented yet).
+- Added run time error checking to the interpreter in place of the type checker. 
+- Designed a concrete syntax for the language, and implemented a parser that can parse the concrete syntax and be extended to support new data types and primitive operations.
+- Wrote a simple main module that takes a file as input and runs the Roy code inside it end to end. It reads the file, parses it into an AST, and evaluates the AST.
+- Defined multiple test cases to ensure correctness in the interpreter and the parser.
+
+
+#### Features to be added:
+- Add more primitive operations for integers and booleans.
+- Develop an example user extension to show that the language is extendable. 
+
+### Design Decisions
+- GADT for extendable data types
+
+- Extendable primitive ops
+
+- Parser combinator/monad
+
+- Refactoring semantic domain to fix issues with the language? if time.
