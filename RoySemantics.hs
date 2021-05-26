@@ -32,7 +32,8 @@ eval (Prim n x y) m      = do  DA x1 <- eval x m
                                f2    <- dynApply f1 (toDyn y1)
                                fromDynamic f2
 eval (Ref x) (m,_)       = lookup x m
-eval (Call fn vs) (m,fm) = flip runFun (filter (filterEnv vs) m, fm) <$> lookup fn fm >>= id
+eval (Call fn vs) (m,fm) = eval (Ref "_ret") <$> exec >>= id
+    where exec = flip stmts (filter (filterEnv vs) m, fm) <$> lookup fn fm >>= id
 
 --
 -- Statement Evaluation Functions
@@ -49,10 +50,6 @@ stmt (While e ss) m    = do DA x <- eval e m
 stmt (Def v ss) (m,fm) = Just (m,(v,ss):fm)
 
 stmts :: [Stmt] -> (Env,FuncEnv) -> Maybe (Env,FuncEnv)
-stmts (s:ss) m = stmt s m >>= stmts ss
-stmts [] m     = Just m
-
-runFun :: Func -> (Env,FuncEnv) -> Maybe DVal
-runFun ([]) m       = Nothing
-runFun (Ret e:_) m  = eval e m
-runFun (s:ss)    m  = stmt s m >>= runFun ss
+stmts (Ret e:_) (m,fm) = eval e (m,fm) >>= \x -> Just (("_ret",x):m,fm)
+stmts (s:ss) m         = stmt s m >>= stmts ss
+stmts [] m             = Just m

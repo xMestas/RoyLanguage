@@ -28,6 +28,10 @@ seriesSum = [Set "count" (Lit (DA (0::Int))),
                  If (Prim "eq" (Ref "count") (Lit (DA (5::Int)))) [Set "test" (Lit (DA (False)))]],
              Ret (Ref "x")]
 
+getRet :: Maybe (Env,FuncEnv) -> Maybe DVal
+getRet (Just e)  = eval (Ref "_ret") e
+getRet Nothing   = Nothing
+
 -- Sample program #1
 --  x := 0
 --  y := True

@@ -64,17 +64,17 @@ import RoyParser
 
 -- | Sample Programs Tests
 --
---   >>> runFun prog1 ([], [])
+--   >>> getRet (stmts prog1 ([], []))
 --   Just 10
 -- 
---   >>> runFun prog2 ([], [])
+--   >>> getRet (stmts prog2 ([], []))
 --   Just 1
 --
---   >>> runFun prog3 ([], [])
+--   >>> getRet (stmts prog3 ([], []))
 --   Just 105
 --
 --   Call a function without a return statement
---   runFun (callBinaryFunc (1::Int) (2::Int) addFunc) ([], [])
+--   getRet (stmts (callBinaryFunc (1::Int) (2::Int) addFunc) ([], []))
 --   Nothing
 
 -- | Parser Tests
