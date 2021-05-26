@@ -42,7 +42,7 @@ data Expr = Lit DVal
 data Stmt = Set Var Expr
           | If Expr [Stmt]
           | While Expr [Stmt]
-          | Def Var Func
+          | Def Var [Stmt]
           | Ret Expr
           deriving (Show)
 

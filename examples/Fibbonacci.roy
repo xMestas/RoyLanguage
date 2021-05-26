@@ -1,0 +1,27 @@
+def var fib {
+    set var fib1 = $ Int 0
+    set var fib2 = $ Int 1
+    set var fib3 = $ Int 0
+    set var cnt = $ Int 1
+    set var test = $ Bool True
+    if (eq (ref var x, $ Int 0)) {
+        set var test = $ Bool False
+    }
+    if (eq (ref var x, $ Int 1)) {
+        set var test = $ Bool False
+        set var fib3 = $ Int 1
+    }
+    while (ref var test) {
+        set var fib3 = add (ref var fib1, ref var fib2)
+        set var fib1 = ref var fib2
+        set var fib2 = ref var fib3
+        set var cnt = add (ref var cnt, $ Int 1)
+        if (eq (ref var cnt, ref var x)) {
+            set var test = $ Bool False
+        }
+    }
+    ret ref var fib3
+}
+
+set var x = $ Int 11
+set var result = call var fib(var x)
