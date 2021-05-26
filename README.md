@@ -127,7 +127,7 @@ prog ::= e | stmt; prog   	  // sequence of statements
    The `runFun` function is used for evaluating the result of a function (a list of statements that contains a return statement).
    Notice that each evaluation function also takes in a tuple, with the first element being a list of tuples with a variable name and a `DVal` stored in that variable, and the second element being a list of tuples with a function name, and a list of statements for that function.
    The easiest environment to start with is `([],[])`. 
-   You can see many examples of these evaluation functions being used in [RoyTests.hs](RoyTest.hs).
+   You can see many examples of these evaluation functions being used in [RoyTests.hs](RoyTests.hs).
  
  - You would write a program with concrete syntax in a file. To execute a file written with Roy, compile the `Main.hs` and execute it with filename as the argument. Sample programs can be found in `examples` folder.
    ```
