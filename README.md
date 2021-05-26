@@ -114,7 +114,7 @@ prog ::= e | stmt; prog   	  // sequence of statements
 
   ```doctest RoyTests.hs```
 
-  To interact with the language, example programs, and evaluation functions in GHCi, load [RoyTests.hs](RoyTests.hs) in GHCi with the following command:
+  To interact with the language, example programs, parser, and evaluation functions in GHCi, load [RoyTests.hs](RoyTests.hs) in GHCi with the following command:
 
   ```ghci RoyTests.hs```
 
@@ -128,6 +128,8 @@ prog ::= e | stmt; prog   	  // sequence of statements
    Notice that each evaluation function also takes in a tuple, with the first element being a list of tuples with a variable name and a `DVal` stored in that variable, and the second element being a list of tuples with a function name, and a list of statements for that function.
    The easiest environment to start with is `([],[])`. 
    You can see many examples of these evaluation functions being used in [RoyTests.hs](RoyTests.hs).
+
+ - You can run the parser directly in ghci by running the `parseProg` function and passing to it a string that represents the concrete syntax to parse.  Individual smaller parsers can be ran using the `runParse` function which takes as input the parser to run and the string to be parsed by that parser.
  
  - You would write a program with concrete syntax in a file. To execute a file written with Roy, compile the `Main.hs` and execute it with filename as the argument. Sample programs can be found in `examples` folder.
    ```
