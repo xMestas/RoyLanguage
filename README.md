@@ -1,4 +1,4 @@
-# ROY (Extensible Imperative Language) by Lazy
+# Roy (Extensible Imperative Language) by Lazy
 
 ## Table of Contents
 - [Project Description](#project-description)
@@ -15,7 +15,7 @@
 
 ## Project Description
 
-For our project, we will create an easily user extendable imperative programming language (ROY), and implement a simple extension known as Linear Algebra Neatly Created Extension (LANCE) to demonstrate how such extensions can be done. 
+For our project, we will create an easily user extendable imperative programming language (Roy), and implement a simple extension known as Linear Algebra Neatly Created Extension (LANCE) to demonstrate how such extensions can be done. 
 Our programming language will be simple in its core features, but designed to be extended by users by allowing them to implement custom data types and operations on those data types–a plugin architecture.  In addition, we will take inspiration from SageMath and implement an example user extension that includes matrices and vectors as data types with basic operations such as dot products that can be performed on them.
 
 The features planned for our project are:
@@ -161,9 +161,9 @@ prog ::= e | stmt; prog   	  // sequence of statements
   $ ./Main examples/SeriesSum.roy
   Just ([("result",105),("x",100)],[("seriesSum",[Set "count" (Lit 0),Set "test" (Lit True),While (Ref "test") [Set "x" (Prim "add" (Ref "x") (Lit 1)),Set "count" (Prim "add" (Ref "count") (Lit 1)),If (Prim "eq" (Ref "count") (Lit 5)) [Set "test" (Lit False)]],Ret (Ref "x")])])
   ```
-- This gives 11th number in Fibbonacci sequence. It can give another Fibbonacci number by changing argument in line 26
+- This gives 11th number in Fibonacci sequence. It can give another Fibonacci number by changing argument in line 26
   ```
-  $ ./Main examples/Fibbonacci.roy
+  $ ./Main examples/Fibonacci.roy
   Just ([("result",89),("x",11)],[("fib",[Set "fib1" (Lit 0),Set "fib2" (Lit 1),Set "fib3" (Lit 0),Set "cnt" (Lit 1),Set "test" (Lit True),If (Prim "eq" (Ref "x") (Lit 0)) [Set "test" (Lit False)],If (Prim "eq" (Ref "x") (Lit 1)) [Set "test" (Lit False),Set "fib3" (Lit 1)],While (Ref "test") [Set "fib3" (Prim "add" (Ref "fib1") (Ref "fib2")),Set "fib1" (Ref "fib2"),Set "fib2" (Ref "fib3"),Set "cnt" (Prim "add" (Ref "cnt") (Lit 1)),If (Prim "eq" (Ref "cnt") (Ref "x")) [Set "test" (Lit False)]],Ret (Ref "fib3")])])
   ```
 
