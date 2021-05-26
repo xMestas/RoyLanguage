@@ -162,7 +162,13 @@ prog ::= e | stmt; prog   	  // sequence of statements
   *RoyTests> getRet (stmts prog3 ([], []))
   Just 105
   ```
-  
+
+- Runs the parser with the program concrete1 as input.  Produces an AST that represents the program.  This AST can be evaluated byu the evaluation function.
+  ```
+  *RoyTests> parseProg concrete1
+  Right [Def "foo" [Set "x" (Lit 34),Ret (Ref "x")],Set "worked" (Lit False),Set "result" (Call "foo" []),If (Prim "eq" (Ref "result") (Lit 34)) [Set "worked" (Lit True)]] 
+  ```
+ 
 - Runs above program written in a file with concrete syntax.
   ```
   $ ./Main examples/SeriesSum.roy
