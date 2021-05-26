@@ -99,6 +99,10 @@ prog ::= e | stmt; prog   	  // sequence of statements
   ```
 
 ## Instructions
+- The project depends on the external library Parsec, and uses doctest for unit tests.  To install these, first install cabal.  Then, run the following commands:
+  
+  ```cabal install doctest```
+  ```cabal install parsec```
 
 - [RoySyntax.hs](RoySyntax.hs) holds the definitions of the data types that make up the core syntax and AST of the language.
 - [RoyBase.hs](RoyBase.hs) defines the basic data types and operations in the language. The basic data types and operations are added to the language in the same way an extension would be done.
