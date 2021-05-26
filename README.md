@@ -80,7 +80,7 @@ prog ::= e | stmt; prog   	  // sequence of statements
   set var y = ref var x
   set var z = call foo(var x, var y)
   ```
-- When `if` and `while` statement is used, it is followed by an expression enclosed by parentheses and statements enclosed by curly braces `{...}`.
+- When `if` and `while` statement is used, it is followed by an expression enclosed by parentheses and statements enclosed by curly braces `{...}`. Note that a return statement should not be used inside the curly braces.
   ```
   if (eq (ref var x, ref var y)) {
      set var z = add (ref var z, $ Int 1) 
