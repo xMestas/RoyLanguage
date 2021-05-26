@@ -152,7 +152,7 @@ prog ::= e | stmt; prog   	  // sequence of statements
 
 - Runs a program that takes the number 100, passes it to a function that adds 5 to it using a loop, and returns the result. 
   ```
-  *RoyTests> runFun prog3 ([], [])
+  *RoyTests> getRet (stmts prog3 ([], []))
   Just 105
   ```
   
