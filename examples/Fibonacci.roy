@@ -24,4 +24,4 @@ def var fib {
 }
 
 set var x = $ Int 11
-set var result = call var fib(var x)
+ret call var fib(var x)

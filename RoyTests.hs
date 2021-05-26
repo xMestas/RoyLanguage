@@ -114,7 +114,7 @@ import RoyParser
 --   >>> runParse parseExpr "add ($ Int 34, $ Int 35)"
 --   Right (Prim "add" (Lit 34) (Lit 35))
 --
---   Parser cannot check semantic error 
+--   Note that parser cannot check semantic error 
 --   >>> runParse parseExpr "add (eq ($ Bool True, $ Bool False), $ Int 35)"
 --   Right (Prim "add" (Prim "eq" (Lit True) (Lit False)) (Lit 35))
 --
@@ -144,3 +144,29 @@ import RoyParser
 --
 --   >>> runParse parseStmts concrete1
 --   Right [Def "foo" [Set "x" (Lit 34),Ret (Ref "x")],Set "worked" (Lit False),Set "result" (Call "foo" []),If (Prim "eq" (Ref "result") (Lit 34)) [Set "worked" (Lit True)]]
+--   
+-- | Parser can detect wrong data type
+--
+--   >>> runParse parseStmts "set var x = $ Int True\n"
+--   Left "(Unknown)" (line 1, column 19):
+--   unexpected "T"
+--   expecting digit
+--
+--   >>> runParse parseStmts "set var x = $ Bool 10\n"
+--   Left "(Unknown)" (line 1, column 20):
+--   unexpected "1"
+--   expecting "True" or "False"
+--
+-- | Currently parser does not support negative integer
+
+--   >>> runParse parseStmts "set var x = $ Int -10\n"
+--   Left "(Unknown)" (line 1, column 19):
+--   unexpected "-"
+--   expecting digit   
+--
+-- | 'var' keyword is required for every function or variable name
+
+--   runParse parseStmts "def x {\n set var y = $ Int 10\n}\n"
+--   Left "(Unknown)" (line 1, column 5):
+--   unexpected "x"
+--   expecting "var "

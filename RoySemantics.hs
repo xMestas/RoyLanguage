@@ -53,3 +53,7 @@ stmts :: [Stmt] -> (Env,FuncEnv) -> Maybe (Env,FuncEnv)
 stmts (Ret e:_) (m,fm) = eval e (m,fm) >>= \x -> Just (("_ret",x):m,fm)
 stmts (s:ss) m         = stmt s m >>= stmts ss
 stmts [] m             = Just m
+
+getRet :: Maybe (Env,FuncEnv) -> Maybe DVal
+getRet (Just e)  = eval (Ref "_ret") e
+getRet Nothing   = Nothing
