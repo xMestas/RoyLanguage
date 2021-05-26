@@ -130,8 +130,10 @@ prog ::= e | stmt; prog   	  // sequence of statements
    You can see many examples of these evaluation functions being used in [RoyTests.hs](RoyTests.hs).
 
  - You can run the parser directly in ghci by running the `parseProg` function and passing to it a string that represents the concrete syntax to parse.  Individual smaller parsers can be ran using the `runParse` function which takes as input the parser to run and the string to be parsed by that parser.
+
+ - To extend the language, define new data types and operations by creating a module with an instance of the type class `RoyDataType` like is done in [RoyBase.hs](RoyBase.hs).  Include this module in [RoyParser.hs](RoyParser.hs).  For each new instance of the type class, pick a value of that type.  Append `litParseList` with `litParserInfo (value)` and append `primOpList` with primOps (value).  After this, recompile main.  The new parser and interpreter will support the new data type. 
  
- - You would write a program with concrete syntax in a file. To execute a file written with Roy, compile the `Main.hs` and execute it with filename as the argument. Sample programs can be found in `examples` folder.
+ - You would write a program with concrete syntax in a file. To execute a file written with Roy, compile the `Main.hs` and execute it with filename as the argument. This is the main way to use the project. Sample programs can be found in `examples` folder.
    ```
    $ ghc -O Main.hs
    $ ./Main filename
