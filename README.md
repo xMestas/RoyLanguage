@@ -176,7 +176,7 @@ prog ::= e | stmt; prog   	  // sequence of statements
   $ ./Main examples/SeriesSum.roy
   Just ([("result",105),("x",100)],[("seriesSum",[Set "count" (Lit 0),Set "test" (Lit True),While (Ref "test") [Set "x" (Prim "add" (Ref "x") (Lit 1)),Set "count" (Prim "add" (Ref "count") (Lit 1)),If (Prim "eq" (Ref "count") (Lit 5)) [Set "test" (Lit False)]],Ret (Ref "x")])])
   ```
-- This gives 11th number in Fibonacci sequence. It can give another Fibonacci number by changing argument in line 26
+- This gives 11th number in Fibonacci sequence. It can give another Fibonacci number by changing the variable.
   ```
   $ ./Main examples/Fibonacci.roy
   Just ([("result",89),("x",11)],[("fib",[Set "fib1" (Lit 0),Set "fib2" (Lit 1),Set "fib3" (Lit 0),Set "cnt" (Lit 1),Set "test" (Lit True),If (Prim "eq" (Ref "x") (Lit 0)) [Set "test" (Lit False)],If (Prim "eq" (Ref "x") (Lit 1)) [Set "test" (Lit False),Set "fib3" (Lit 1)],While (Ref "test") [Set "fib3" (Prim "add" (Ref "fib1") (Ref "fib2")),Set "fib1" (Ref "fib2"),Set "fib2" (Ref "fib3"),Set "cnt" (Prim "add" (Ref "cnt") (Lit 1)),If (Prim "eq" (Ref "cnt") (Ref "x")) [Set "test" (Lit False)]],Ret (Ref "fib3")])])
