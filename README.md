@@ -110,11 +110,12 @@ prog ::= e | stmt; prog   	  // sequence of statements
 - [RoySemantics.hs](RoySemantics.hs) contains evaluation functions for expressions and statements. 
 - [RoyExamples.hs](RoyExamples.hs) has example programs for the language, as well as helper functions for building example programs. 
 - [RoyParser.hs](RoyParser.hs) includes parsing functions for expressions and statements.
+- [Main.hs](Main.hs) defines a main IO monad that will read a programs concrete syntax from a file and execute it.
 - [RoyTests.hs](RoyTests.hs) contains doctest test cases for the evaluation functions that use the examples.  After installing doctest, the tests can be ran with the following command:
 
   ```doctest RoyTests.hs```
 
-  To interact with the language, example programs, parser, and evaluation functions in GHCi, load [RoyTests.hs](RoyTests.hs) in GHCi with the following command:
+  To interact with the language, example programs, parser (including the LANCE extension parser), and evaluation functions in GHCi, load [RoyTests.hs](RoyTests.hs) in GHCi with the following command:
 
   ```ghci RoyTests.hs```
 
@@ -132,12 +133,21 @@ prog ::= e | stmt; prog   	  // sequence of statements
  - You can run the parser directly in ghci by running the `parseProg` function and passing to it a string that represents the concrete syntax to parse.  Individual smaller parsers can be ran using the `runParse` function which takes as input the parser to run and the string to be parsed by that parser.
 
  - To extend the language, define new data types and operations by creating a module with an instance of the type class `RoyDataType` like is done in [RoyBase.hs](RoyBase.hs).  Include this module in [RoyParser.hs](RoyParser.hs).  For each new instance of the type class, pick a value of that type.  Append `litParseList` with `litParserInfo (value)` and append `primOpList` with primOps (value).  After this, recompile main.  The new parser and interpreter will support the new data type. 
+
+ - We made an example extension called LANCE that adds matricies as a new primitive data type.  Most of the work for the extension is done in [Lance.hs](Lance.hs).  The parser in [RoyParser.hs](RoyParser.hs) was copied and modified as described before to create the LANCE parser in [LanceParser.hs](LanceParser.hs).  Because we made a seperate file for the Lance Parser to show how it works, we had to also make a seperate main file called [LanceMain.hs](LanceMain.hs).
  
  - You would write a program with concrete syntax in a file. To execute a file written with Roy, compile the `Main.hs` and execute it with filename as the argument. This is the main way to use the project. Sample programs can be found in `examples` folder.
    ```
    $ ghc -O Main.hs
    $ ./Main filename
    ```
+ 
+ - To execute a LANCE file, compile `LanceMain.hs` and execute it with filename as the argument the same was as with Roy.
+   ```
+   $ ghc -O LanceMain.hs
+   $ ./LanceMain filename
+   ```
+
 
 ## Examples
 
