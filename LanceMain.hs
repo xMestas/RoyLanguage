@@ -3,9 +3,7 @@ module Main where
 import System.IO
 import System.Environment
 
--- Change this to an extended parser to include an extended parser
-import RoyParser
-
+import LanceParser
 import RoySemantics
 
 main :: IO ()
