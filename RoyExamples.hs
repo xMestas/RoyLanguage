@@ -1,8 +1,11 @@
 module RoyExamples where
 
+import Data.Matrix
+
 import RoySyntax
 import RoySemantics
 import RoyBase
+import Lance
 
 -- Function examples
 
@@ -67,9 +70,20 @@ prog3 = [Set "x" (Lit (DA (100::Int))),
          Def "seriesSum" seriesSum,
          Ret (Call "seriesSum" ["x"])]
 
+-- Sample program #3
+-- This calls 'seriesSum' function
+
+prog4 :: Func
+prog4 = [Set "x" (Lit (DA (fromLists [[1::Int, 2],[3,4]]))),
+         Set "y" (Lit (DA (fromLists [[1::Int, 2],[3,4]]))),
+         Ret (Prim "matadd" (Ref "x") (Ref "y"))]
+
 
 -- Concrete syntax examples for the parser to parse
 
 concrete1 :: String
 concrete1 = "def var foo {\n set var x = $ Int 34\n ret ref var x\n}\n\nset var worked = $ Bool False \nset var result = call var foo()\nif (eq (ref var result, $ Int 34 ) ) {\n  set var worked = $ Bool True \n}\n\n"
+
+concrete2 :: String
+concrete2 = "set var x = $ Mat [[1,2],[3,4]] \nset var y = $ Mat [[1,2],[3,4]] \n ret matadd (ref var x, ref var y)\n"
 

@@ -4,7 +4,7 @@ import RoySyntax
 import RoySemantics
 import RoyBase
 import RoyExamples
-import RoyParser
+import LanceParser
 import Lance
 
 import Data.Matrix
@@ -75,6 +75,12 @@ import Data.Matrix
 --
 --   >>> getRet (stmts prog3 ([], []))
 --   Just 105
+--
+--   >>> getRet (stmts prog4 ([], []))
+--   Just ┌     ┐
+--   │ 2 4 │
+--   │ 6 8 │
+--   └     ┘
 --
 --   Call a function without a return statement
 --   getRet (stmts (callBinaryFunc (1::Int) (2::Int) addFunc) ([], []))
@@ -147,6 +153,15 @@ import Data.Matrix
 --
 --   >>> runParse parseStmts concrete1
 --   Right [Def "foo" [Set "x" (Lit 34),Ret (Ref "x")],Set "worked" (Lit False),Set "result" (Call "foo" []),If (Prim "eq" (Ref "result") (Lit 34)) [Set "worked" (Lit True)]]
+--   
+--   >>> runParse parseStmts concrete2
+--   Right [Set "x" (Lit ┌     ┐
+--   │ 1 2 │
+--   │ 3 4 │
+--   └     ┘),Set "y" (Lit ┌     ┐
+--   │ 1 2 │
+--   │ 3 4 │
+--   └     ┘),Ret (Prim "matadd" (Ref "x") (Ref "y"))] 
 --   
 -- | Parser can detect wrong data type
 --
