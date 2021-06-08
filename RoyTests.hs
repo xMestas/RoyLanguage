@@ -5,6 +5,9 @@ import RoySemantics
 import RoyBase
 import RoyExamples
 import RoyParser
+import Lance
+
+import Data.Matrix
 
 -- | Expression Evaluation Function Tests
 --
@@ -166,7 +169,28 @@ import RoyParser
 --
 -- | 'var' keyword is required for every function or variable name
 
---   runParse parseStmts "def x {\n set var y = $ Int 10\n}\n"
+--   >>> runParse parseStmts "def x {\n set var y = $ Int 10\n}\n"
 --   Left "(Unknown)" (line 1, column 5):
 --   unexpected "x"
 --   expecting "var "
+
+-- | Lance tests.
+-- 
+--  >>> runParse (parseMat) "[[1,20,3],[4,5,6],[7,4,12]]"
+--  Right ┌          ┐
+--  │  1 20  3 │
+--  │  4  5  6 │
+--  │  7  4 12 │
+--  └          ┘
+--
+--   >>> eval (Prim "matadd" (Lit (DA (fromLists [[1::Int,2,3],[4,5,6]]))) (Lit (DA (fromLists [[4::Int,5,6],[1,2,3]])))) ([],[])
+--   Just ┌       ┐
+--   │ 5 7 9 │
+--   │ 5 7 9 │
+--   └       ┘
+--
+--   >>> eval (Prim "matmul" (Lit (DA (fromLists [[1::Int,2,3],[4,5,6]]))) (Lit (DA (fromLists [[4::Int,5],[1,2],[1,3]])))) ([],[])
+--   Just ┌       ┐
+--   │  9 18 │
+--   │ 27 48 │
+--   └       ┘
