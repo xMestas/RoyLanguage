@@ -198,8 +198,16 @@ prog ::= e | stmt; prog   	  // sequence of statements
   $ ./Main -getRet examples/Fibonacci.roy
   Just 89
   ```
-  
-  
+- Lance files can be ran the same way with LanceMain.  
+  ```
+  ./LanceMain -getRet examples/Concrete2.lance
+  Just ┌     ┐
+  │ 2 4 │
+  │ 6 8 │
+  └     ┘  
+  ```
+
+
 ## Milestone 1
 
 ### Progress
