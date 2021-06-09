@@ -126,13 +126,11 @@ prog ::= e | stmt; prog   	  // sequence of statements
    For example, to store the integer 4 as a DVal you would need to do `(DA 4::Int)`.
 
  - Expressions and Statements can be evaluated using their evaluation functions.
-   Their respective evaluation functions are `eval` for expressions, `stmt` for a single statement, and `stmts` for a list of statements.
-   The `runFun` function is used for evaluating the result of a function (a list of statements that contains a return statement).
-   Notice that each evaluation function also takes in a tuple, with the first element being a list of tuples with a variable name and a `DVal` stored in that variable, and the second element being a list of tuples with a function name, and a list of statements for that function.
+   Their respective evaluation functions are `eval` for expressions, `stmt` for a single statement, and `stmts` for a list of statements. Notice that each evaluation function also takes in a tuple, with the first element being a list of tuples with a variable name and a `DVal` stored in that variable, and the second element being a list of tuples with a function name, and a list of statements for that function.
    The easiest environment to start with is `([],[])`. 
    You can see many examples of these evaluation functions being used in [RoyTests.hs](RoyTests.hs).
 
- - You can run the parser directly in ghci by running the `parseProg` function and passing to it a string that represents the concrete syntax to parse.  Individual smaller parsers can be ran using the `runParse` function which takes as input the parser to run and the string to be parsed by that parser.
+ - You can run the parser directly in ghci by running the `parseProg` function and passing to it a string that represents the concrete syntax to parse.  Individual smaller parsers can be run by using the `runParse` function which takes as input the parser to run and the string to be parsed by that parser.
 
  - To extend the language, define new data types and operations by creating a module with an instance of the type class `RoyDataType` like is done in [RoyBase.hs](RoyBase.hs).  Include this module in [RoyParser.hs](RoyParser.hs).  For each new instance of the type class, pick a value of that type.  Append `litParseList` with `litParserInfo (value)` and append `primOpList` with primOps (value).  After this, recompile main.  The new parser and interpreter will support the new data type. 
 
