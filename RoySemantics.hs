@@ -3,6 +3,7 @@ module RoySemantics where
 import RoySyntax
 import Data.Typeable 
 import Data.Dynamic
+import Data.Foldable
 
 --
 --  Evaluation Helper Functions
@@ -10,14 +11,6 @@ import Data.Dynamic
 
 getOp :: String -> PrimOp -> Maybe Dynamic
 getOp n (on, f) = if n == on then Just f else Nothing
-
-filterEnv :: [Var] -> (Var,DVal) -> Bool
-filterEnv vs (c,_) = elem c vs
-
-findJust :: [Maybe Dynamic] -> Maybe Dynamic
-findJust [Nothing]    = Nothing
-findJust (Nothing:ls) = findJust ls
-findJust (Just f:_)   = Just f
 
 --
 -- Expression Evaluation Function
@@ -27,13 +20,13 @@ eval :: Expr -> (Env,FuncEnv) -> Maybe DVal
 eval (Lit x) _           = Just x
 eval (Prim n x y) m      = do  DA x1 <- eval x m 
                                DA y1 <- eval y m
-                               op    <- findJust $ map (getOp n) (primOps x1)
+                               op    <- asum $ map (getOp n) (primOps x1)
                                f1    <- dynApply op (toDyn x1)
                                f2    <- dynApply f1 (toDyn y1)
                                fromDynamic f2
 eval (Ref x) (m,_)       = lookup x m
 eval (Call fn vs) (m,fm) = eval (Ref "_ret") <$> exec >>= id
-    where exec = flip stmts (filter (filterEnv vs) m, fm) <$> lookup fn fm >>= id
+    where exec = flip stmts (m, fm) <$> lookup fn fm >>= id
 
 --
 -- Statement Evaluation Functions
