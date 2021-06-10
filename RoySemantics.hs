@@ -31,10 +31,10 @@ evalM :: Expr -> ReaderT (Env,FuncEnv) Maybe DVal
 evalM (Lit x)       = return $ x
 evalM (Prim n x y)  = do x1 <- evalM x
                          x2 <- evalM y
-                         ReaderT $ \_ -> tryApply n x1 x2
-evalM (Ref x)       = ask >>= \(m,_) -> ReaderT $ \_ -> lookup x m
+                         lift $ tryApply n x1 x2
+evalM (Ref x)       = ask >>= \(m,_) -> lift $ lookup x m
 evalM (Call fn vs)  = do (_, fm) <- ask
-                         ss      <- ReaderT $ \_ -> (lookup fn fm)
+                         ss      <- lift $ lookup fn fm
                          (a, b)  <- stmtsM ss
                          local (\_ -> (a,b)) $ evalM (Ref "_ret")
 
@@ -50,21 +50,19 @@ stmtM (Set v e)    = do (m,fm) <- ask
                         x      <- evalM e
                         return ((v,x):m,fm)
 stmtM (If e ss)    = do DA x <- evalM e
-                        c    <- ReaderT $ \_ -> cast x
+                        c    <- lift $ cast x
                         if c then stmtsM ss else ask
 stmtM (While e ss) = do DA x <- evalM e
-                        c    <- ReaderT $ \_ -> cast x
+                        c    <- lift $ cast x
                         if c then stmtsM (ss++[(While e ss)]) else ask
-stmtM (Def v ss)   = do (m,fm) <- ask
-                        return (m,(v,ss):fm)
+stmtM (Def v ss)   = ask >>= \(m,fm) -> return (m,(v,ss):fm)
 
 stmt :: Stmt -> (Env,FuncEnv) -> Maybe (Env,FuncEnv)
 stmt = runReaderT . stmtM
 
 stmtsM :: [Stmt] -> ReaderT (Env,FuncEnv) Maybe (Env,FuncEnv)
 stmtsM (Ret e:_) = stmtM (Set "_ret" e)
-stmtsM (s:ss)    = do (a, b) <- stmtM s 
-                      local (\_ -> (a,b)) (stmtsM ss)
+stmtsM (s:ss)    = stmtM s >>= \(a,b) -> local (\_ -> (a,b)) (stmtsM ss)
 stmtsM []        = ask
 
 stmts :: [Stmt] -> (Env,FuncEnv) -> Maybe (Env,FuncEnv)
