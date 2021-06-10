@@ -99,11 +99,14 @@ prog ::= e | stmt; prog   	  // sequence of statements
   ```
 
 ## Instructions
-- The project depends on the external library Parsec, and uses doctest for unit tests. The LANCE extension uses `Data.Matrix` library. To install these, first install cabal.  Then, run the following commands:
+- The project depends on the external library Parsec, and uses doctest for unit tests.  To install these, first install cabal.  Then, run the following commands:
   
   ```
   $ cabal install doctest
   $ cabal install parsec
+  ```
+- The LANCE extension uses `Data.Matrix` library.
+  ```
   $ cabal install matrix
   ```
 
